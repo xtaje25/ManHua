@@ -162,7 +162,6 @@
     <Content Include="Content\themes\default\images\zfb.png" />
     <Content Include="Content\themes\default\style.css" />
     <Content Include="dwz.frag.xml" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\dwz.accordion.js" />
     <Content Include="Scripts\dwz.ajax.js" />
@@ -216,16 +215,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ArticleRepository.cs" />
     <Compile Include="Repository\ConncetionHelper.cs" />
+    <Compile Include="Service\ArticleService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Paging.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -235,7 +233,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Service\" />
     <Folder Include="Utility\" />
   </ItemGroup>
   <PropertyGroup>

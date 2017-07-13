@@ -36,14 +36,14 @@ namespace ManHuaAdmin.Repository
             return list;
         }
 
-        public List<AC_Article> GetCircleList(int pageIndex, out int totalPage, out int totalRecord)
+        public List<AC_Article> GetArticleList(int pageIndex, int pageSize, out int totalPage, out int totalRecord)
         {
             PageCriteria page = new PageCriteria();
             page.TableName = "[AC_Article]";
             page.Fields = "[ArticleId], [Title], [Editor], [PublishDateTime], [IsEnable], [CreateDateTime]";
             page.Condition = "1 = 1";
             page.Sort = "[ArticleId] DESC";
-            page.PageSize = 20;
+            page.PageSize = pageSize;
             page.CurrentPage = pageIndex;
 
             return GetSomeList<AC_Article>(page, out totalPage, out totalRecord);
