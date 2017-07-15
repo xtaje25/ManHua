@@ -8,58 +8,41 @@
     <input type="hidden" name="pageNum" value="1">
     <input type="hidden" name="numPerPage" value="@(vm.numPerPage)">
 </form>
+
 <div class="pageHeader">
     @*<form onsubmit="return navTabSearch(this);" action="demo_page1.html" method="post" onreset="$(this).find('select.combox').comboxReset()">
             <div class="searchBar">
                 <table class="searchContent">
-                    <tbody>
-                        <tr>
-                            <td>
-                                我的客户：<input type="text" name="keyword" class="textInput">
-                            </td>
-                            <td>
-                                <div class="combox">
-                                    <div id="combox_670570" class="select" ref="demo_combox_city">
-                                        <a href="javascript:" name="province" value="all" default-value="all">所有省市</a><select class="combox" name="province" ref="demo_combox_city" refurl="demo/combox/city_{value}.html">
-                                            <option value="all">所有省市</option>
-                                            <option value="bj">北京</option>
-                                            <option value="sh">上海</option>
-                                            <option value="zj">浙江省</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="combox">
-                                    <div id="combox_demo_combox_city" class="select" ref="demo_combox_region">
-                                        <a href="javascript:" name="city" value="all" default-value="all">所有城市</a><select class="combox" name="city" id="demo_combox_city" ref="demo_combox_region" refurl="demo/combox/region_{value}.html">
-                                            <option value="all">所有城市</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="combox">
-                                    <div id="combox_demo_combox_region" class="select">
-                                        <a href="javascript:" name="region" value="all" default-value="all">所有区县</a><select class="combox" name="region" id="demo_combox_region">
-                                            <option value="all">所有区县</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="combox">
-                                    <div id="combox_7702651" class="select">
-                                        <a href="javascript:" name="type" value="3" default-value="3">3级</a><select class="combox" name="type">
-                                            <option value="all">所有等级</option>
-                                            <option value="1">1级</option>
-                                            <option value="2">2级</option>
-                                            <option value="3" selected="">3级</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                建档日期：<input type="text" class="date textInput readonly" readonly="true">
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <td>
+                            我的客户：<input type="text" name="keyword" />
+                        </td>
+                        <td>
+                            <select class="combox" name="province" ref="demo_combox_city" refUrl="demo/combox/city_{value}.html">
+                                <option value="all">所有省市</option>
+                                <option value="bj">北京</option>
+                                <option value="sh">上海</option>
+                                <option value="zj">浙江省</option>
+                            </select>
+                            <select class="combox" name="city" id="demo_combox_city" ref="demo_combox_region" refUrl="demo/combox/region_{value}.html">
+                                <option value="all">所有城市</option>
+                            </select>
+                            <select class="combox" name="region" id="demo_combox_region">
+                                <option value="all">所有区县</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="combox" name="type">
+                                <option value="all">所有等级</option>
+                                <option value="1">1级</option>
+                                <option value="2">2级</option>
+                                <option value="3" selected>3级</option>
+                            </select>
+                        </td>
+                        <td>
+                            建档日期：<input type="text" class="date" readonly="true" />
+                        </td>
+                    </tr>
                 </table>
                 <div class="subBar">
                     <ul>
@@ -74,90 +57,60 @@
 <div class="pageContent">
     <div class="panelBar">
         @*<ul class="toolBar">
-                <li><a class="add" href="demo_page4.html" target="navTab"><span>添加</span></a></li>
-                <li><a class="delete" href="demo/common/ajaxDone.html?uid={sid_user}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
-                <li><a class="edit" href="demo_page4.html?uid={sid_user}" target="navTab"><span>修改</span></a></li>
-                <li class="line">line</li>
-                <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targettype="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
-            </ul>*@
+            <li><a class="add" href="demo_page4.html" target="navTab"><span>添加</span></a></li>
+            <li><a class="delete" href="demo/common/ajaxDone.html?uid={sid_user}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+            <li><a class="edit" href="demo_page4.html?uid={sid_user}" target="navTab"><span>修改</span></a></li>
+            <li class="line">line</li>
+            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+        </ul>*@
     </div>
-    <div class="grid" style="height:100%">
-        <div class="gridHeader">
-            <div class="gridThead">
-                <table style="width:1683px;">
-                    <thead>
-                        <tr>
-                            <th style="width: 23px;"><div class="gridCol" title=""></div></th>
-                            <th style="width: 60px;"><div class="gridCol" title="客户号">文章ID</div></th>
-                            <th style="width: 943px;"><div class="gridCol" title="客户名称">标题</div></th>
-                            <th style="width: 102px;"><div class="gridCol" title="客户类型">作者</div></th>
-                            <th style="width: 149px;"><div class="gridCol" title="证件号码">发布时间</div></th>
-                            <th class="center" style="width: 83px;"><div class="gridCol" title="信用等级">是否发布</div></th>
-                            <th style="width: 149px;"><div class="gridCol" title="所属行业">创建时间</div></th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-        <div class="gridScroller" layouth="87">
-            <div class="gridTbody">
-                <table style="width:1683px;">
-                    <tbody>
-                        @if (vm.list != null && vm.list.Count > 0)
-                        {
-                            int i = 1;
-                            foreach (var item in vm.list)
-                            {
-                                if (i == 1)
-                                {
-                                    <tr target="sid_user" rel="@i" class="">
-                                        <td style="width: 23px;"><div></div></td>
-                                        <td style="width: 60px;"><div>@(item.ArticleId)</div></td>
-                                        <td style="width: 943px;"><div>@(item.Title)</div></td>
-                                        <td style="width: 102px;"><div>@(item.Editor)</div></td>
-                                        <td style="width: 149px;"><div>@(item.PublishDateTime != null ? ((DateTime)item.PublishDateTime).ToString("yyyy-MM-dd") : "")</div></td>
-                                        <td class="center" style="width: 83px;"><div>@(item.IsEnable ? "已发布" : "未发布")</div></td>
-                                        <td style="width: 149px;"><div>@(((DateTime)item.CreateDateTime).ToString("yyyy-MM-dd"))</div></td>
-                                    </tr>
-                                }
-                                else
-                                {
-                                    <tr target="sid_user" rel="@i" class="">
-                                        <td><div></div></td>
-                                        <td><div>@(item.ArticleId)</div></td>
-                                        <td><div>@(item.Title)</div></td>
-                                        <td><div>@(item.Editor)</div></td>
-                                        <td><div>@(item.PublishDateTime != null ? ((DateTime)item.PublishDateTime).ToString("yyyy-MM-dd") : "")</div></td>
-                                        <td class="center" style="width: 83px;"><div>@(item.IsEnable ? "已发布" : "未发布")</div></td>
-                                        <td><div>@(((DateTime)item.CreateDateTime).ToString("yyyy-MM-dd"))</div></td>
-                                    </tr>
-                                }
-                                i++;
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="resizeMarker" style="height:300px; left:57px;display:none;"></div><div class="resizeProxy" style="height:300px; left:377px;display:none;"></div>
-    </div>
+    <table class="table" width="100%" layoutH="87">
+        <thead>
+            <tr>
+                <th width="80"></th>
+                <th width="120">文章id</th>
+                <th>文章标题</th>
+                <th width="100">作者</th>
+                <th width="150">发布时间</th>
+                <th width="80" align="center">是否发布</th>
+                <th width="80">来源类型</th>
+                <th width="80">创建时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (vm.list != null && vm.list.Count > 0)
+            {
+                int i = 1;
+                foreach (var item in vm.list)
+                {
+                    <tr target="sid_user" rel="@i">
+                        <td><div>@i</div></td>
+                        <td><div>@(item.ArticleId)</div></td>
+                        <td><div>@(item.Title)</div></td>
+                        <td><div>@(item.Editor)</div></td>
+                        <td><div>@(item.PublishDateTime != null ? ((DateTime)item.PublishDateTime).ToString("yyyy-MM-dd") : "")</div></td>
+                        <td><div>@(item.IsEnable ? "已发布" : "未发布")</div></td>
+                        <td><div>@(item.SourceType)</div></td>
+                        <td><div>@(((DateTime)item.CreateDateTime).ToString("yyyy-MM-dd"))</div></td>
+                    </tr>
+                    i++;
+                }
+            }
+        </tbody>
+    </table>
     <div class="panelBar">
         <div class="pages">
             <span>显示</span>
-            <div class="combox">
-                <div id="combox_8856939" class="select">
-                    <a href="javascript:" name="numPerPage" value="20" default-value="20">20</a><select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="200">200</option>
-                    </select>
-                </div>
-            </div>
+            <select name="numPerPage" id="numPerPage" param="numPerPage" onchange="navTabPageBreak({targetType:'dialog', numPerPage:this.value})">
+                @foreach (var it in vm.option)
+                {
+                    <option value="@it" @(vm.numPerPage == it ? "selected=\"selected\"" : "")>@it</option>
+                }
+            </select>
             <span>条，共@(vm.totalcount)条</span>
         </div>
 
-        <div class="pagination" targettype="navTab" totalcount="@(vm.totalcount)" nu numperpage="@(vm.numPerPage)" pa pagenumshown="10" currentpage="@(vm.pageNum)"></></div>
+        <div class="pagination" targettype="navTab" totalcount="@(vm.totalcount)" numperpage="@(vm.numPerPage)" pagenumshown="10" currentpage="@(vm.pageNum)"></></div>
 
     </div>
 </div>

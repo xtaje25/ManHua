@@ -40,7 +40,7 @@ namespace ManHuaAdmin.Repository
         {
             PageCriteria page = new PageCriteria();
             page.TableName = "[AC_Article]";
-            page.Fields = "[ArticleId], [Title], [Editor], [PublishDateTime], [IsEnable], [CreateDateTime]";
+            page.Fields = "[ArticleId], [Title], [Editor], [PublishDateTime], [IsEnable], [SourceType], [CreateDateTime]";
             page.Condition = "1 = 1";
             page.Sort = "[ArticleId] DESC";
             page.PageSize = pageSize;
