@@ -11,9 +11,9 @@ namespace ManHuaAdmin.Service
     {
         ArticleRepository ar = new ArticleRepository();
 
-        public List<AC_Article> GetArticleList(int pageIndex, int pageSize, out int totalPage, out int totalRecord)
+        public List<AC_Article> GetArticleList(string title, int pageIndex, int pageSize, out int totalPage, out int totalRecord)
         {
-            return ar.GetArticleList(pageIndex, pageSize, out totalPage, out totalRecord);
+            return ar.GetArticleList(title, pageIndex, pageSize, out totalPage, out totalRecord);
         }
     }
 }

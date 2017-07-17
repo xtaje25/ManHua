@@ -10,61 +10,61 @@
 </form>
 
 <div class="pageHeader">
-    @*<form onsubmit="return navTabSearch(this);" action="demo_page1.html" method="post" onreset="$(this).find('select.combox').comboxReset()">
-            <div class="searchBar">
-                <table class="searchContent">
-                    <tr>
-                        <td>
-                            我的客户：<input type="text" name="keyword" />
-                        </td>
-                        <td>
-                            <select class="combox" name="province" ref="demo_combox_city" refUrl="demo/combox/city_{value}.html">
-                                <option value="all">所有省市</option>
-                                <option value="bj">北京</option>
-                                <option value="sh">上海</option>
-                                <option value="zj">浙江省</option>
-                            </select>
-                            <select class="combox" name="city" id="demo_combox_city" ref="demo_combox_region" refUrl="demo/combox/region_{value}.html">
-                                <option value="all">所有城市</option>
-                            </select>
-                            <select class="combox" name="region" id="demo_combox_region">
-                                <option value="all">所有区县</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="combox" name="type">
-                                <option value="all">所有等级</option>
-                                <option value="1">1级</option>
-                                <option value="2">2级</option>
-                                <option value="3" selected>3级</option>
-                            </select>
-                        </td>
-                        <td>
-                            建档日期：<input type="text" class="date" readonly="true" />
-                        </td>
-                    </tr>
-                </table>
-                <div class="subBar">
-                    <ul>
-                        <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>
-                        <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                        <li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
-                    </ul>
-                </div>
+    <form onsubmit="return navTabSearch(this);" action="@Url.Content("~/Home/Paging")" method="post" onreset="$(this).find('select.combox').comboxReset()">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        文章标题：<input type="text" name="title" />
+                    </td>
+                    @*<td>
+                        <select name="province" ref="demo_combox_city" refUrl="demo/combox/city_{value}.html">
+                            <option value="all">所有省市</option>
+                            <option value="bj">北京</option>
+                            <option value="sh">上海</option>
+                            <option value="zj">浙江省</option>
+                        </select>
+                        <select name="city" id="demo_combox_city" ref="demo_combox_region" refUrl="demo/combox/region_{value}.html">
+                            <option value="all">所有城市</option>
+                        </select>
+                        <select name="region" id="demo_combox_region">
+                            <option value="all">所有区县</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="type">
+                            <option value="all">所有等级</option>
+                            <option value="1">1级</option>
+                            <option value="2">2级</option>
+                            <option value="3" selected>3级</option>
+                        </select>
+                    </td>
+                    <td>
+                        建档日期：<input type="text" class="date" readonly="true" />
+                    </td>*@
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>                    
+                    @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>*@
+                </ul>
             </div>
-        </form>*@
+        </div>
+    </form>
 </div>
 <div class="pageContent">
     <div class="panelBar">
         @*<ul class="toolBar">
-            <li><a class="add" href="demo_page4.html" target="navTab"><span>添加</span></a></li>
-            <li><a class="delete" href="demo/common/ajaxDone.html?uid={sid_user}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
-            <li><a class="edit" href="demo_page4.html?uid={sid_user}" target="navTab"><span>修改</span></a></li>
-            <li class="line">line</li>
-            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
-        </ul>*@
+                <li><a class="add" href="demo_page4.html" target="navTab"><span>添加</span></a></li>
+                <li><a class="delete" href="demo/common/ajaxDone.html?uid={sid_user}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+                <li><a class="edit" href="demo_page4.html?uid={sid_user}" target="navTab"><span>修改</span></a></li>
+                <li class="line">line</li>
+                <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+            </ul>*@
     </div>
-    <table class="table" width="100%" layoutH="87">
+    <table class="table" width="100%" layoutH="137">
         <thead>
             <tr>
                 <th width="80"></th>
@@ -110,7 +110,7 @@
             <span>条，共@(vm.totalcount)条</span>
         </div>
 
-        <div class="pagination" targettype="navTab" totalcount="@(vm.totalcount)" numperpage="@(vm.numPerPage)" pagenumshown="10" currentpage="@(vm.pageNum)"></></div>
+        <div class="pagination" targettype="navTab" totalcount="@(vm.totalcount)" numperpage="@(vm.numPerPage)" pagenumshown="10" currentpage="@(vm.pageNum)"></div>
 
     </div>
 </div>

@@ -36,12 +36,15 @@ namespace ManHuaAdmin.Repository
             return list;
         }
 
-        public List<AC_Article> GetArticleList(int pageIndex, int pageSize, out int totalPage, out int totalRecord)
+        public List<AC_Article> GetArticleList(string title, int pageIndex, int pageSize, out int totalPage, out int totalRecord)
         {
             PageCriteria page = new PageCriteria();
             page.TableName = "[AC_Article]";
             page.Fields = "[ArticleId], [Title], [Editor], [PublishDateTime], [IsEnable], [SourceType], [CreateDateTime]";
-            page.Condition = "1 = 1";
+            if (string.IsNullOrWhiteSpace(title))
+                page.Condition = "1 = 1";
+            else
+                page.Condition = "[Title] like '%" + title + "%'";
             page.Sort = "[ArticleId] DESC";
             page.PageSize = pageSize;
             page.CurrentPage = pageIndex;

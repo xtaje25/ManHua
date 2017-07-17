@@ -22,30 +22,6 @@ namespace ManHuaAdmin.Controllers
 
         public ActionResult Test()
         {
-            var pageNum = Request.Form["pageNum"];
-            var numPerPage = Request.Form["numPerPage"];
-
-            var pageIndex = 0;
-            var pageSize = 0;
-            var totalPage = 0;
-            var totalRecord = 0;
-
-            int.TryParse(pageNum, out pageIndex);
-            int.TryParse(numPerPage, out pageSize);
-
-            pageIndex = pageIndex == 0 ? 1 : pageIndex;
-            pageSize = pageSize == 0 ? 50 : pageSize;
-
-            var list = _as.GetArticleList(pageIndex, pageSize, out totalPage, out totalRecord);
-
-            VM_Paging vm = new VM_Paging();
-            vm.pageNum = pageIndex;
-            vm.numPerPage = pageSize;
-            vm.totalcount = totalRecord;
-            vm.list = list;
-
-            ViewBag.pi = vm;
-
             return View();
         }
 
@@ -58,6 +34,7 @@ namespace ManHuaAdmin.Controllers
 
             var pageNum = Request.Form["pageNum"];
             var numPerPage = Request.Form["numPerPage"];
+            var title = Request.Form["title"];
 
             var pageIndex = 0;
             var pageSize = 0;
@@ -70,7 +47,7 @@ namespace ManHuaAdmin.Controllers
             pageIndex = pageIndex == 0 ? 1 : pageIndex;
             pageSize = pageSize == 0 ? 50 : pageSize;
 
-            var list = _as.GetArticleList(pageIndex, pageSize, out totalPage, out totalRecord);
+            var list = _as.GetArticleList(title, pageIndex, pageSize, out totalPage, out totalRecord);
 
             VM_Paging vm = new VM_Paging();
             vm.pageNum = pageIndex;
