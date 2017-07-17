@@ -54,6 +54,7 @@ namespace ManHuaAdmin.Controllers
             vm.numPerPage = pageSize;
             vm.totalcount = totalRecord;
             vm.option = option;
+            vm.title = title == null ? string.Empty : title;
             vm.list = list;
 
             ViewBag.pi = vm;

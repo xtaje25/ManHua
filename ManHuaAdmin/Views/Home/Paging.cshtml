@@ -5,8 +5,9 @@
 }
 
 <form id="pagerForm" method="post" action="@Url.Content("~/Home/Paging")">
-    <input type="hidden" name="pageNum" value="1">
-    <input type="hidden" name="numPerPage" value="@(vm.numPerPage)">
+    <input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="@(vm.numPerPage)" />
+    <input type="hidden" name="title" value="@(vm.title)" />
 </form>
 
 <div class="pageHeader">
@@ -15,7 +16,7 @@
             <table class="searchContent">
                 <tr>
                     <td>
-                        文章标题：<input type="text" name="title" />
+                        文章标题：<input type="text" name="title" value="@(vm.title)"/>
                     </td>
                     @*<td>
                         <select name="province" ref="demo_combox_city" refUrl="demo/combox/city_{value}.html">
@@ -101,7 +102,7 @@
     <div class="panelBar">
         <div class="pages">
             <span>显示</span>
-            <select name="numPerPage" id="numPerPage" param="numPerPage" onchange="navTabPageBreak({targetType:'dialog', numPerPage:this.value})">
+            <select name="numPerPage" id="numPerPage" param="numPerPage" onchange="navTabPageBreak({targetType:'navTab', numPerPage:this.value})">
                 @foreach (var it in vm.option)
                 {
                     <option value="@it" @(vm.numPerPage == it ? "selected=\"selected\"" : "")>@it</option>

@@ -15,6 +15,7 @@ namespace ManHuaAdmin.Models
         public int numPerPage { get; set; }
         public int totalcount { get; set; }
         public int[] option { get; set; }
+        public string title { get; set; }
         public List<AC_Article> list { get; set; }
     }
 
