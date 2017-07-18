@@ -51,5 +51,58 @@ namespace ManHuaAdmin.Repository
 
             return GetSomeList<AC_Article>(page, out totalPage, out totalRecord);
         }
+
+        public int AddArticle(AC_Article m)
+        {
+            var sql = @"INSERT INTO [AC_Article]
+                                   ([Title]
+                                   ,[SourceType]
+                                   ,[Editor]
+                                   ,[PublishDateTime]
+                                   ,[IsEableComment]
+                                   ,[IsPublish]
+                                   ,[IsEnable]
+                                   ,[CreateDateTime]
+                                   ,[LastUpdateDateTime]
+                                   ,[LastUpdateEditor]
+                                   ,[ImageId]
+                                   ,[EditorId]
+                                   ,[ArticleType])
+                             VALUES
+                                   (@Title
+                                   ,@SourceType
+                                   ,@Editor
+                                   ,@PublishDateTime
+                                   ,@IsEableComment
+                                   ,@IsPublish
+                                   ,@IsEnable
+                                   ,@CreateDateTime
+                                   ,@LastUpdateDateTime
+                                   ,@LastUpdateEditor
+                                   ,@ImageId
+                                   ,@EditorId
+                                   ,@ArticleType)";
+
+            using (SqlConnection conn = new SqlConnection(TruckhomeConncetionString))
+            {
+                var r = conn.Execute(sql, new
+                {
+                    Title = m.Title,
+                    SourceType = m.SourceType,
+                    Editor = m.Editor,
+                    PublishDateTime = m.PublishDateTime,
+                    IsEableComment = m.IsEableComment,
+                    IsPublish = m.IsPublish,
+                    IsEnable = m.IsEnable,
+                    CreateDateTime = m.CreateDateTime,
+                    LastUpdateDateTime = m.LastUpdateDateTime,
+                    LastUpdateEditor = m.LastUpdateEditor,
+                    ImageId = m.ImageId,
+                    EditorId = m.EditorId,
+                    ArticleType = m.ArticleType
+                });
+                return r;
+            }
+        }
     }
 }

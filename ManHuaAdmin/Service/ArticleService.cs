@@ -15,5 +15,10 @@ namespace ManHuaAdmin.Service
         {
             return ar.GetArticleList(title, pageIndex, pageSize, out totalPage, out totalRecord);
         }
+
+        public int AddArticle(AC_Article m)
+        {
+            return ar.AddArticle(m);
+        }
     }
 }

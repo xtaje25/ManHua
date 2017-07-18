@@ -61,5 +61,13 @@ namespace ManHuaAdmin.Controllers
 
             return View();
         }
+
+        /// <summary>
+        /// 添加文章
+        /// </summary>        
+        public ActionResult Article()
+        {
+            return View();
+        }
     }
 }
