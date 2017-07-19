@@ -97,43 +97,50 @@
                     <div class="accordionContent">
                         <ul class="tree treeFolder">
                             <li>
-                                <a href="tabsPage.html" target="navTab">主框架面板</a>
+                                <a>主框架面板</a>
                                 <ul>
-                                    <li><a href="main.html" target="navTab" rel="main">我的主页</a></li>
-                                    <li><a href="@Url.Content("~/Home/Test")" target="navTab" rel="Paging">测试</a></li>
+                                    <li><a>我的主页</a></li>
+                                    <li><a href="@Url.Content("~/Home/Test")" target="navTab" rel="Test">测试</a></li>
                                     <li><a href="@Url.Content("~/Home/Paging")" target="navTab" rel="Paging">文章列表</a></li>
-                                    <li><a href="@Url.Content("~/Home/Article")" target="navTab" rel="Paging">添加文章</a></li>
+                                    <li><a href="@Url.Content("~/Home/Article")" target="navTab" rel="Article">添加文章</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>公号管理</a>
+                                <ul>
+                                    <li><a href="w_panel.html" target="navTab" rel="w_panel">公号目录</a></li>
+                                    <li><a href="w_panel.html" target="navTab" rel="w_panel">公号信息</a></li>
                                 </ul>
                             </li>
 
                             <li>
-                                <a>常用组件</a>
+                                <a>账号管理</a>
                                 <ul>
-                                    <li><a href="w_panel.html" target="navTab" rel="w_panel">面板</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a>表单组件</a>
-                                <ul>
-                                    <li><a href="w_validation.html" target="navTab" rel="w_validation">表单验证</a></li>
+                                    <li><a href="w_validation.html" target="navTab" rel="w_validation">员工账号</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a>组合应用</a>
+                                <a>漫画管理</a>
                                 <ul>
-                                    <li><a href="demo/pagination/layout1.html" target="navTab" rel="pagination1">局部刷新分页1</a></li>
+                                    <li><a href="demo/pagination/layout1.html" target="navTab" rel="pagination1">漫画目录</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a>图表</a>
+                                <a>营销管理</a>
                                 <ul>
-                                    <li><a href="chart/test/barchart.html" target="navTab" rel="chart">柱状图(垂直)</a></li>
+                                    <li><a href="chart/test/barchart.html" target="navTab" rel="chart">漫画定价</a></li>
                                 </ul>
                             </li>
-                            <li><a href="dwz.frag.xml" target="navTab" external="true">dwz.frag.xml</a></li>
+                            <li>
+                                <a>订单管理</a>
+                                <ul>
+                                    <li><a href="chart/test/barchart.html" target="navTab" rel="chart">已支付订单</a></li>
+                                    <li><a href="chart/test/barchart.html" target="navTab" rel="chart">已消费订单</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
+                    <!--
                     <div class="accordionHeader">
                         <h2><span>Folder</span>典型页面</h2>
                     </div>
@@ -172,6 +179,7 @@
                             <li><a href="newPage1.html" target="dialog" rel="dlg_page2">列表</a></li>
                         </ul>
                     </div>
+                    -->
                 </div>
             </div>
         </div>
