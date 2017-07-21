@@ -93,6 +93,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\img\arw_l.gif" />
+    <Content Include="Content\css\img\arw_r.gif" />
+    <Content Include="Content\css\img\dl.png" />
+    <Content Include="Content\css\img\hj.png" />
+    <Content Include="Content\css\img\ht_name.png" />
+    <Content Include="Content\css\img\lgbg.png" />
+    <Content Include="Content\css\img\loading.gif" />
+    <Content Include="Content\css\img\menubg.gif" />
+    <Content Include="Content\css\img\right.png" />
+    <Content Include="Content\css\img\srbg.png" />
+    <Content Include="Content\css\img\srbg2.png" />
+    <Content Include="Content\css\img\timeicon.gif" />
+    <Content Include="Content\css\img\xjt.png" />
+    <Content Include="Content\css\img\xs.png" />
+    <Content Include="Content\css\img\xs2.png" />
     <Content Include="Content\themes\css\core.css" />
     <Content Include="Content\themes\css\ieHack.css" />
     <Content Include="Content\themes\css\login.css" />
@@ -226,6 +241,7 @@
     <Content Include="Views\Home\Paging.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Home\Article.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
