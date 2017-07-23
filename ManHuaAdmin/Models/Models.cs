@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -187,4 +188,104 @@ namespace ManHuaAdmin.Models
             set { _RecordCount = value; }
         }
     }
+
+    #region mh
+    public class Tab_Auth_Menu_Relation
+    {
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_AuthId { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_MenuId { get; set; }
+    }
+
+    public class Tab_Authorization
+    {
+        [Key]
+        public int F_Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string F_Name { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string F_AuthType { get; set; }
+
+        public DateTime F_CreateDate { get; set; }
+    }
+
+    public class Tab_Menu
+    {
+        [Key]
+        public int F_Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string F_Name { get; set; }
+
+        [Required]
+        [StringLength(500)]
+        public string F_URL { get; set; }
+
+        public int F_ParentId { get; set; }
+    }
+
+    public class Tab_Role
+    {
+        [Key]
+        public int F_Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string F_Name { get; set; }
+    }
+
+    public class Tab_Role_Auth_Relation
+    {
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_RoleId { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_AuthId { get; set; }
+    }
+
+    public class Tab_User
+    {
+        [Key]
+        public int F_Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string F_Name { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string F_Password { get; set; }
+
+        public DateTime F_CreateDate { get; set; }
+    }
+
+    public class Tab_User_Auth_Relation
+    {
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_UserId { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_RoleId { get; set; }
+    }
+    #endregion
+
 }

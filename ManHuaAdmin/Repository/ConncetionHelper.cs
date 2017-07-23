@@ -10,5 +10,6 @@ namespace ManHuaAdmin.Repository
     public class ConncetionHelper
     {
         protected static readonly string TruckhomeConncetionString = WebConfigurationManager.ConnectionStrings["TruckhomeConncetionString"].ConnectionString;
+        protected static readonly string MHConncetionString = WebConfigurationManager.ConnectionStrings["MHConncetionString"].ConnectionString;
     }
 }

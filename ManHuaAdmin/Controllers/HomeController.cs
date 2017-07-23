@@ -1,16 +1,19 @@
 ﻿using ManHuaAdmin.Models;
 using ManHuaAdmin.Service;
+using ManHuaAdmin.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ManHuaAdmin.Controllers
 {
     public class HomeController : Controller
     {
         private ArticleService _as = new ArticleService();
+        private UserService _us = new UserService();
 
         /// <summary>
         /// 主页
@@ -20,6 +23,9 @@ namespace ManHuaAdmin.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 测试
+        /// </summary>
         public ActionResult Test()
         {
             return View();
@@ -67,12 +73,47 @@ namespace ManHuaAdmin.Controllers
         /// </summary>        
         public ActionResult Article()
         {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName]; // 获取cookie
+            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); // 解密
+            var user = SerializeHelper.FromJson<Tab_User>(ticket.UserData);
+
             return View();
         }
 
+        /// <summary>
+        /// 登录
+        /// </summary>
         public ActionResult Login()
         {
-            return View();
+            var username = Request.Form["username"];
+            var password = Request.Form["password"];
+
+            if (username != null && password != null)
+            {
+                var user = _us.GetUser(username, password);
+                if (user != null)
+                {
+                    var now = DateTime.Now;
+
+                    user.F_CreateDate = DateTime.Now;
+                    string UserData = SerializeHelper.ToJson<Tab_User>(user); // 序列化用户实体
+
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "user", now, now, true, UserData);
+                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)); // 加密身份信息，保存至Cookie
+                    cookie.HttpOnly = true;
+                    Response.Cookies.Add(cookie);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

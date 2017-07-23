@@ -1,0 +1,37 @@
+﻿using ManHuaAdmin.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using Dapper;
+
+namespace ManHuaAdmin.Repository
+{
+    public class UserRepository : ConncetionHelper
+    {
+        public Tab_User GetUser(string name, string password)
+        {
+            var sql = "SELECT [F_Id], [F_Name], [F_Password], [F_CreateDate] FROM dbo.Tab_User WHERE F_Name = @F_Name AND F_Password = @F_Password";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                var list = conn.Query<Tab_User>(sql, new { F_Name = name, F_Password = password }).ToList();
+
+                if (list != null && list.Count > 0)
+                {
+                    Tab_User u = new Tab_User();
+                    u.F_Id = list[0].F_Id;
+                    u.F_Name = list[0].F_Name;
+                    u.F_Password = list[0].F_Password;
+
+                    return u;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+    }
+}
