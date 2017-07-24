@@ -269,18 +269,39 @@
     </style>
 </head>
 <body>
+    <script></script>
     <div class="main">
         <div class="mainin">
             <div class="mainin1">
                 <form action="@Url.Content("/Home/Login")" method="post">
                     <ul>
-                        <li><span>用户名：</span><input type="text" name="username" id="username" class="SearchKeyword"></li>
-                        <li><span>密码：</span><input type="password" name="password" id="password" class="SearchKeyword2"></li>
+                        <li><span>用户名：</span><input type="text" name="username" id="username" class="SearchKeyword" value="" /></li>
+                        <li><span>密码：</span><input type="password" name="password" id="password" class="SearchKeyword2" /></li>
                         <li><input type="submit" value="提交" class="tijiao" /></li>
                     </ul>
                 </form>
             </div>
         </div>
     </div>
+    @if (ViewBag.msg != "")
+    {
+        <div id="POPLoading" class="cssPOPLoading" style="left: 760px; top: 274.667px; display: none;">
+            <div style=" height:110px; border-bottom:1px solid #9a9a9a">
+                <div id="showMessge" class="showMessge">@(ViewBag.msg)</div>
+            </div>
+            <div style=" line-height:40px; font-size:14px; letter-spacing:1px;">
+                <a id="btn1">确定</a>
+            </div>
+        </div>
+        <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+        <script>
+            if ($("#showMessge").html() != "") {
+                $("#POPLoading").show();
+            }
+            $("#btn1").click(function () {
+                $("#POPLoading").fadeOut();
+            });
+        </script>
+    }
 </body>
 </html>

@@ -7,10 +7,9 @@ using System.Web;
 
 namespace ManHuaAdmin.Models
 {
-    public class Models
-    {
-    }
+    public class Models { }
 
+    #region 文章
     public class AC_Article
     {
         public int ArticleId { get; set; }
@@ -136,7 +135,9 @@ namespace ManHuaAdmin.Models
 
         public bool IsDealerArticle { get; set; }
     }
+    #endregion
 
+    #region 分页
     public class PageCriteria
     {
         private string _TableName;
@@ -188,6 +189,7 @@ namespace ManHuaAdmin.Models
             set { _RecordCount = value; }
         }
     }
+    #endregion
 
     #region mh
     public class Tab_Auth_Menu_Relation
@@ -233,6 +235,8 @@ namespace ManHuaAdmin.Models
         public string F_URL { get; set; }
 
         public int F_ParentId { get; set; }
+
+        public int F_Site { get; set; }
     }
 
     public class Tab_Role

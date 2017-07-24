@@ -17,7 +17,8 @@ namespace ManHuaAdmin.Controllers
 
         /// <summary>
         /// 主页
-        /// </summary>        
+        /// </summary>
+        [CustomAuthorize]
         public ActionResult Index()
         {
             return View();
@@ -33,7 +34,8 @@ namespace ManHuaAdmin.Controllers
 
         /// <summary>
         /// 分页
-        /// </summary>        
+        /// </summary>
+        [CustomAjaxAuthorize]
         public ActionResult Paging()
         {
             var option = new int[] { 20, 50, 100, 200 };
@@ -73,10 +75,6 @@ namespace ManHuaAdmin.Controllers
         /// </summary>        
         public ActionResult Article()
         {
-            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName]; // 获取cookie
-            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); // 解密
-            var user = SerializeHelper.FromJson<Tab_User>(ticket.UserData);
-
             return View();
         }
 
@@ -85,6 +83,20 @@ namespace ManHuaAdmin.Controllers
         /// </summary>
         public ActionResult Login()
         {
+            ViewBag.msg = "";
+
+            HttpCookie authCookie = Request.Cookies["a"]; // 获取cookie
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); // 解密
+                var user = SerializeHelper.FromJson<Tab_User>(ticket.UserData);
+                var u = new UserService().GetUser(user.F_Name, user.F_Password);
+                if (u != null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             var username = Request.Form["username"];
             var password = Request.Form["password"];
 
@@ -99,7 +111,7 @@ namespace ManHuaAdmin.Controllers
                     string UserData = SerializeHelper.ToJson<Tab_User>(user); // 序列化用户实体
 
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "user", now, now, true, UserData);
-                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)); // 加密身份信息，保存至Cookie
+                    HttpCookie cookie = new HttpCookie("a", FormsAuthentication.Encrypt(ticket).ToLower()); // 加密身份信息，保存至Cookie
                     cookie.HttpOnly = true;
                     Response.Cookies.Add(cookie);
 
@@ -107,6 +119,7 @@ namespace ManHuaAdmin.Controllers
                 }
                 else
                 {
+                    ViewBag.msg = "用户名或密码不正确";
                     return View();
                 }
             }
@@ -114,6 +127,11 @@ namespace ManHuaAdmin.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult AjaxLogin()
+        {
+            return View();
         }
     }
 }

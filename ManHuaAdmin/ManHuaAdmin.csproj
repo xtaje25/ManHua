@@ -221,7 +221,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\GZHController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MHController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\SaleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -232,6 +237,7 @@
     <Compile Include="Repository\ConncetionHelper.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Service\ArticleService.cs" />
+    <Compile Include="Service\CustomAuthorizeAttribute.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Utility\SerializeHelper.cs" />
   </ItemGroup>
@@ -245,6 +251,14 @@
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Home\Article.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\AjaxLogin.cshtml" />
+    <Content Include="Views\GZH\Catalog.cshtml" />
+    <Content Include="Views\GZH\Info.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\MH\Catalog.cshtml" />
+    <Content Include="Views\Sale\Price.cshtml" />
+    <Content Include="Views\Order\Pay.cshtml" />
+    <Content Include="Views\Order\Cancel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
