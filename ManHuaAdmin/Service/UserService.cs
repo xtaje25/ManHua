@@ -15,5 +15,10 @@ namespace ManHuaAdmin.Service
         {
             return ur.GetUser(name, password);
         }
+
+        public int UpdatePassword(int uid, string opwd, string npwd)
+        {
+            return ur.UpdatePassword(uid, opwd, npwd);
+        }
     }
 }

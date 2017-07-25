@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ManHuaAdmin.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace ManHuaAdmin.Controllers
 {
     public class MHController : Controller
     {
+        [CustomAuthorize]
+        [CustomLogin]
         public ActionResult Catalog()
         {
             return View();

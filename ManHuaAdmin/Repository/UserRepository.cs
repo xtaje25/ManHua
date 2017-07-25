@@ -33,5 +33,15 @@ namespace ManHuaAdmin.Repository
                 }
             }
         }
+
+        public int UpdatePassword(int uid, string opwd, string npwd)
+        {
+            var sql = "UPDATE dbo.Tab_User SET F_Password = @F_Password WHERE F_Id = @F_Id AND F_Password = @F_Password2";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                return conn.Execute(sql, new { F_Password = npwd, F_Id = uid, F_Password2 = opwd });
+            }
+        }
     }
 }

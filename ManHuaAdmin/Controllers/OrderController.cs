@@ -8,7 +8,7 @@ namespace ManHuaAdmin.Controllers
 {
     public class OrderController : Controller
     {
-        public ActionResult Price()
+        public ActionResult Pay()
         {
             return View();
         }
