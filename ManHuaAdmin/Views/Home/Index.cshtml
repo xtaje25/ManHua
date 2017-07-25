@@ -101,16 +101,7 @@
                         <h2><span>Folder</span>界面组件</h2>
                     </div>
                     <div class="accordionContent">
-                        <ul class="tree treeFolder">
-                            <li>
-                                <a>主框架面板</a>
-                                <ul>
-                                    <li><a>我的主页</a></li>
-                                    <li><a href="@Url.Content("~/Home/Test")" target="navTab" rel="Test">测试</a></li>
-                                    <li><a href="@Url.Content("~/Home/Paging")" target="navTab" rel="Paging">文章列表</a></li>
-                                    <li><a href="@Url.Content("~/Home/Article")" target="navTab" rel="Article">添加文章</a></li>
-                                </ul>
-                            </li>
+                        <ul class="tree treeFolder">                            
                             @if (ls.Count > 0)
                             {
                                 foreach (var a in nl)
@@ -169,6 +160,15 @@
                                     <li><a href="chart/test/barchart.html" target="navTab" rel="chart">已消费订单</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a>主框架面板</a>
+                                <ul>
+                                    <li><a>我的主页</a></li>
+                                    <li><a href="@Url.Content("~/Home/Test")" target="navTab" rel="Test">测试</a></li>
+                                    <li><a href="@Url.Content("~/Home/Paging")" target="navTab" rel="Paging">文章列表</a></li>
+                                    <li><a href="@Url.Content("~/Home/Article")" target="navTab" rel="Article">添加文章</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                     <!--
@@ -203,7 +203,8 @@
                 </ul>
                 <div class="navTab-panel tabsPageContent layoutBox">
                     <div class="page unitBox">
-                        <div class="accountInfo">
+                        <!--
+                        @*<div class="accountInfo">
                             <div class="alertInfo">
                                 <p><a href="https://code.csdn.net/dwzteam/dwz_jui/tree/master/doc" target="_blank" style="line-height:19px"><span>DWZ框架使用手册</span></a></p>
                                 <p><a href="http://pan.baidu.com/s/18Bb8Z" target="_blank" style="line-height:19px">DWZ框架开发视频教材</a></p>
@@ -253,9 +254,9 @@ Error loading XML document: dwz.frag.xml
 邮箱：support@jui.org
 </pre>
                             <a class="button" href="http://code.csdn.net/groups/2155" target="_blank"><span>DWZ讨论组</span></a>
-                        </div>
+                        </div>*@
+                            -->
                     </div>
-
                 </div>
             </div>
         </div>
