@@ -9,6 +9,9 @@ using System.Web.Security;
 
 namespace ManHuaAdmin.Service
 {
+    /// <summary>
+    /// 验证登录
+    /// </summary>
     public class CustomLoginAttribute : AuthorizeAttribute
     {
         /// <summary>
@@ -47,6 +50,9 @@ namespace ManHuaAdmin.Service
         }
     }
 
+    /// <summary>
+    /// 验证登录
+    /// </summary>
     public class CustomAjaxLoginAttribute : AuthorizeAttribute
     {
         /// <summary>
@@ -85,6 +91,9 @@ namespace ManHuaAdmin.Service
         }
     }
 
+    /// <summary>
+    /// 验证权限
+    /// </summary>
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
         /// <summary>
@@ -100,7 +109,7 @@ namespace ManHuaAdmin.Service
                 var u = new UserService().GetUser(user.F_Name, user.F_Password);
                 if (u != null)
                 {
-                    var list = new MenuService().GetMenuList(u.F_Id);
+                    var list = new MenuService().GetUrlList(u.F_Id);
 
                     var menu = list.Find(m => httpContext.Request.Url.AbsolutePath.StartsWith("/" + m.F_URL));
                     if (menu != null)

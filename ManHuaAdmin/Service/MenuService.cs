@@ -20,5 +20,11 @@ namespace ManHuaAdmin.Service
         {
             return mr.GetMenuCatalog();
         }
+
+        public List<Tab_Menu> GetUrlList(int userId)
+        {
+            return mr.GetUrlList(userId);
+        }
+
     }
 }

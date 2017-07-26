@@ -38,6 +38,8 @@ namespace ManHuaAdmin.Controllers
 
             ViewBag.nl = newlist;
 
+            ViewBag.name = user.F_Name;
+
             return View();
         }
 
@@ -136,27 +138,27 @@ namespace ManHuaAdmin.Controllers
 
             if (pwd1 == null || pwd1.Length < 6 || pwd1.Length > 20)
             {
-                return Json(new { statusCode = 200, message = "旧密码长度必须大于6个字符小于20字符", navTabId = "", rel = "", callbackType = "", forwardUrl = "", confirmMsg = "" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "旧密码长度必须大于6个字符小于20字符" });
             }
 
             if (pwd2 == null || pwd2.Length < 6 || pwd2.Length > 20)
             {
-                return Json(new { statusCode = 300, message = "新密码长度必须大于6个字符小于20字符", navTabId = "", rel = "", callbackType = "", forwardUrl = "", confirmMsg = "" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "新密码长度必须大于6个字符小于20字符" });
             }
 
             if (pwd3 == null || pwd3.Length < 6 || pwd3.Length > 20)
             {
-                return Json(new { statusCode = 300, message = "新密码长度必须大于6个字符小于20字符", navTabId = "", rel = "", callbackType = "", forwardUrl = "", confirmMsg = "" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "新密码长度必须大于6个字符小于20字符" });
             }
 
             if (pwd2 != pwd3)
             {
-                return Json(new { statusCode = 300, message = "密码不一致", navTabId = "", rel = "", callbackType = "", forwardUrl = "", confirmMsg = "" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "密码不一致" });
             }
 
             if (pwd1 == pwd2)
             {
-                return Json(new { statusCode = 300, message = "新旧密码不能相同", navTabId = "", rel = "", callbackType = "", forwardUrl = "", confirmMsg = "" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "新旧密码不能相同" });
             }
 
             var i = _us.UpdatePassword(user.F_Id, pwd1, pwd2);
@@ -173,11 +175,11 @@ namespace ManHuaAdmin.Controllers
 
                 Response.SetCookie(cookie);
 
-                return Json(new { statusCode = 200, message = "操作成功", navTabId = "", rel = "", callbackType = "", forwardUrl = "", confirmMsg = "" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.OK, message = "操作成功" });
             }
             else
             {
-                return Json(new { statusCode = 300, message = "旧密码不正确", navTabId = "", rel = "", callbackType = "", forwardUrl = "", confirmMsg = "" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "旧密码不正确" });
             }
         }
 

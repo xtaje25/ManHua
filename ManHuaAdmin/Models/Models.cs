@@ -191,6 +191,35 @@ namespace ManHuaAdmin.Models
     }
     #endregion
 
+    public class DWZJson
+    {
+        public int statusCode { get; set; }
+        public string message { get; set; }
+        public string navTabId { get; set; }
+        public string rel { get; set; }
+        public string callbackType { get; set; }
+        public string forwardUrl { get; set; }
+        public string confirmMsg { get; set; }
+    }
+
+    public enum DWZStatusCode
+    {
+        /// <summary>
+        /// 操作成功
+        /// </summary>
+        OK = 200,
+
+        /// <summary>
+        /// 操作失败
+        /// </summary>
+        ERROR = 300,
+
+        /// <summary>
+        /// session超时
+        /// </summary>
+        TIMEOUT = 301,
+    }
+
     #region mh
     public class Tab_Auth_Menu_Relation
     {
@@ -278,7 +307,7 @@ namespace ManHuaAdmin.Models
         public DateTime F_CreateDate { get; set; }
     }
 
-    public class Tab_User_Auth_Relation
+    public class Tab_User_Role_Relation
     {
         [Key]
         [Column(Order = 0)]
@@ -289,6 +318,28 @@ namespace ManHuaAdmin.Models
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int F_RoleId { get; set; }
+    }
+
+    public class Tab_GongZhongHao
+    {
+        [Key]
+        public int F_Id { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string F_GZHName { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string F_WXName { get; set; }
+
+        [StringLength(1000)]
+        public string F_Logo { get; set; }
+
+        [StringLength(4000)]
+        public string F_About { get; set; }
+
+        public DateTime F_CreateDate { get; set; }
     }
     #endregion
 

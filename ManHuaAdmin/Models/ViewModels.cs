@@ -19,4 +19,13 @@ namespace ManHuaAdmin.Models
         public List<AC_Article> list { get; set; }
     }
 
+    public class VM_Catalog
+    {
+        public int pageNum { get; set; }
+        public int numPerPage { get; set; }
+        public int totalcount { get; set; }
+        public int[] option { get; set; }
+        public List<Tab_GongZhongHao> list { get; set; }
+    }
+
 }
