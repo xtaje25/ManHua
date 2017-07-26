@@ -113,15 +113,50 @@ namespace ManHuaAdmin.Repository
                               ,[F_WXName] = @F_WXName
                          WHERE [F_Id] = @F_Id";
 
+            var sql1 = "SELECT COUNT(*) FROM[Tab_GongZhongHao] WHERE[F_GZHName] = @F_GZHName";
+
+            var sql2 = "SELECT COUNT(*) FROM[Tab_GongZhongHao] WHERE[F_WXName] = @F_WXName";
+
             using (SqlConnection conn = new SqlConnection(MHConncetionString))
             {
-                return conn.Execute(sql, new
+                conn.Open();
+                using (SqlTransaction tran = conn.BeginTransaction(IsolationLevel.RepeatableRead))
                 {
-                    F_GZHName = m.F_GZHName,
-                    F_WXName = m.F_WXName,
-                    F_Id = m.F_Id,
-                });
+                    var a = conn.ExecuteScalar(sql1, new { F_GZHName = m.F_GZHName }, tran);
+
+                    var b = conn.ExecuteScalar(sql2, new { F_WXName = m.F_WXName }, tran);
+
+                    if (0 == Convert.ToInt32(a) && 0 == Convert.ToInt32(b))
+                    {
+                        int r = conn.Execute(sql, new
+                        {
+                            F_GZHName = m.F_GZHName,
+                            F_WXName = m.F_WXName,
+                            F_Id = m.F_Id,
+                        }, tran);
+
+                        if (r == 1)
+                        {
+                            tran.Commit();
+                            return 1;
+                        }
+                    }
+
+                    if (Convert.ToInt32(a) > 0)
+                    {
+                        tran.Rollback();
+                        return 2;
+                    }
+
+                    if (Convert.ToInt32(b) > 0)
+                    {
+                        tran.Rollback();
+                        return 3;
+                    }
+                }
             }
+
+            return 0;
         }
 
         public Tab_GongZhongHao GetGZH(int gid)

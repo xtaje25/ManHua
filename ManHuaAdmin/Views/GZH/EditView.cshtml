@@ -1,6 +1,7 @@
-﻿
+﻿@using ManHuaAdmin.Models;
 @{
     ViewBag.Title = "EditView";
+    Tab_GongZhongHao g = ViewBag.g;
 }
 
 <div class="pageContent">
@@ -8,12 +9,13 @@
         <div class="pageFormContent" layoutH="56">
             <p>
                 <label>公号名称：</label>
-                <input name="name" class="required" type="text" size="30" minlength="1" maxlength="200" />
+                <input name="name" class="required" type="text" size="30" minlength="1" maxlength="200" value="@(g!=null?g.F_GZHName:"")" />
             </p>
             <p>
                 <label>关联微信号：</label>
-                <input name="wxin" class="required" type="text" size="30" minlength="1" maxlength="200" />
+                <input name="wxin" class="required" type="text" size="30" minlength="1" maxlength="200" value="@(g!=null?g.F_WXName:"")" />
             </p>
+            <p><input type="hidden" name="id" value="@(g!=null?g.F_Id:0)" /></p>
         </div>
         <div class="formBar">
             <ul>

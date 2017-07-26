@@ -110,9 +110,12 @@ namespace ManHuaAdmin.Controllers
             var gid = 0;
             int.TryParse(id, out gid);
 
+            ViewBag.g = null;
+
             if (gid > 0)
             {
                 var g = _gzhs.GetGZH(gid);
+                ViewBag.g = g;
             }
 
             return View();
@@ -122,7 +125,49 @@ namespace ManHuaAdmin.Controllers
         [CustomAjaxLogin]
         public ActionResult Edit()
         {
-            return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+            var name = Request.Form["name"];
+            var wxin = Request.Form["wxin"];
+            var id = Request.Form["id"];
+
+            var gid = 0;
+            if (!int.TryParse(id, out gid))
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公众号不存在" });
+            }
+
+            if (name == null || name.Length < 1 || name.Length > 200)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "长度必须大于1个字符小于200字符" });
+            }
+
+            if (wxin == null || wxin.Length < 1 || wxin.Length > 200)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "长度必须大于1个字符小于200字符" });
+            }
+
+            Tab_GongZhongHao m = new Tab_GongZhongHao();
+            m.F_GZHName = name;
+            m.F_WXName = wxin;
+            m.F_Id = gid;
+
+            int i = _gzhs.UpdateGZH(m); // 0：没执行；1：执行成功；2：公号名称重复；3：关联微信号重复；
+
+            if (i == 1)
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+            }
+            else if (i == 2)
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "公号名称重复" });
+            }
+            else if (i == 3)
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "关联微信号重复" });
+            }
+            else
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+            }
         }
 
         [CustomAuthorize]
