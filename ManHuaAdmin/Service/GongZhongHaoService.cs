@@ -33,5 +33,20 @@ namespace ManHuaAdmin.Service
         {
             return gzhr.GetGZH(gid);
         }
+
+        public int DeleteGZH(int gid)
+        {
+            return gzhr.DeleteGZH(gid);
+        }
+
+        public int UpdateGZHInfo(Tab_GongZhongHao m)
+        {
+            return gzhr.UpdateGZHInfo(m);
+        }
+
+        public List<Tab_GongZhongHao> GetGZHList()
+        {
+            return gzhr.GetGZHList();
+        }
     }
 }

@@ -341,6 +341,32 @@ namespace ManHuaAdmin.Models
 
         public DateTime F_CreateDate { get; set; }
     }
+
+    public class Tab_MHCatalog
+    {
+        [Key]
+        public int F_Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string F_Catalog { get; set; }
+
+        public int F_GZHId { get; set; }
+
+        public int F_CreateUser { get; set; }
+
+        public DateTime F_CreateDate { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public string GZHName { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public string userName { get; set; }
+    }
     #endregion
 
 }

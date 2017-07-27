@@ -1,0 +1,37 @@
+﻿@using ManHuaAdmin.Models;
+@{
+    ViewBag.Title = "EditView";
+    List<Tab_GongZhongHao> list = ViewBag.list;
+    Tab_MHCatalog m = ViewBag.m;
+}
+
+<div class="pageContent">
+    <form method="post" action="@Url.Content("~/MH/Edit")" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="56">
+            <p>
+                <label>漫画名称：</label>
+                <input name="name" class="required" type="text" size="30" minlength="1" maxlength="50" value="@(m!=null?m.F_Catalog:"")" />
+                <input type="hidden" name="id" value="@(m!=null?m.F_Id:0)" />
+            </p>
+            <p>
+                <label>关联公众号：</label>
+                <select name="gid" ref="w_combox_city">
+                    @foreach (var it in list)
+                    {
+                        <option value="@it.F_Id" @(m.F_GZHId == it.F_Id ? "selected=\"selected\"" : "")>@it.F_GZHName</option>
+                    }
+                </select>
+            </p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div>
+                </li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

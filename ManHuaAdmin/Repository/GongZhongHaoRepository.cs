@@ -5,37 +5,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace ManHuaAdmin.Repository
 {
     public class GongZhongHaoRepository : ConncetionHelper
     {
-        public List<T> GetSomeList<T>(PageCriteria page, out int totalPage, out int totalRecord)
-        {
-            totalPage = 0;
-            totalRecord = 0;
-            var list = new List<T>();
-            using (SqlConnection conn = new SqlConnection(MHConncetionString))
-            {
-                var p = new DynamicParameters();
-                p.Add("@tableName", page.TableName);
-                p.Add("@tableFields", page.Fields);
-                p.Add("@sqlWhere", page.Condition);
-                p.Add("@orderFields", page.Sort);
-                p.Add("@pageSize", page.PageSize);
-                p.Add("@pageIndex", page.CurrentPage);
-                p.Add("@totalPage", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                p.Add("@totalRecord", dbType: DbType.Int32, direction: ParameterDirection.Output);
-
-                list = conn.Query<T>("Module_Common_PagerNew", p, commandType: CommandType.StoredProcedure).ToList();
-
-                totalPage = p.Get<int>("@totalPage");
-                totalRecord = p.Get<int>("@totalRecord");
-            }
-            return list;
-        }
-
         public List<Tab_GongZhongHao> GetGZHList(int pageIndex, int pageSize, out int totalPage, out int totalRecord)
         {
             PageCriteria page = new PageCriteria();
@@ -46,7 +22,7 @@ namespace ManHuaAdmin.Repository
             page.PageSize = pageSize;
             page.CurrentPage = pageIndex;
 
-            return GetSomeList<Tab_GongZhongHao>(page, out totalPage, out totalRecord);
+            return CommonRepository.GetSomeList<Tab_GongZhongHao>(page, out totalPage, out totalRecord);
         }
 
         public int AddGZH(Tab_GongZhongHao m)
@@ -161,7 +137,7 @@ namespace ManHuaAdmin.Repository
 
         public Tab_GongZhongHao GetGZH(int gid)
         {
-            var sql = "SELECT F_Id, F_GZHName, F_WXName FROM dbo.Tab_GongZhongHao WHERE F_Id = @F_Id";
+            var sql = "SELECT F_Id, F_GZHName, F_WXName, F_About, F_Logo FROM dbo.Tab_GongZhongHao WHERE F_Id = @F_Id";
 
             using (SqlConnection conn = new SqlConnection(MHConncetionString))
             {
@@ -173,12 +149,67 @@ namespace ManHuaAdmin.Repository
                     g.F_Id = list[0].F_Id;
                     g.F_GZHName = list[0].F_GZHName;
                     g.F_WXName = list[0].F_WXName;
+                    g.F_About = list[0].F_About;
+                    g.F_Logo = list[0].F_Logo;
 
                     return g;
                 }
             }
 
             return null;
+        }
+
+        public int DeleteGZH(int gid)
+        {
+            var sql = "DELETE FROM dbo.Tab_GongZhongHao WHERE F_Id = @F_Id";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                return conn.Execute(sql, new { F_Id = gid });
+            }
+        }
+
+        public int UpdateGZHInfo(Tab_GongZhongHao m)
+        {
+            if (m.F_Logo == null && m.F_About == null)
+                return 1;
+
+            var sql = new StringBuilder();
+            sql.Append("UPDATE [Tab_GongZhongHao]");
+            if (m.F_About != null)
+            {
+                sql.Append(" SET [F_About] = @F_About");
+            }
+            if (m.F_Logo != null)
+            {
+                if (m.F_About != null)
+                    sql.Append(",[F_Logo] = @F_Logo");
+                else
+                    sql.Append(" SET [F_Logo] = @F_Logo");
+            }
+            sql.Append(" WHERE [F_Id] = @F_Id");
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                return conn.Execute(sql.ToString(), new { F_Id = m.F_Id, F_About = m.F_About, F_Logo = m.F_Logo });
+            }
+        }
+
+        public List<Tab_GongZhongHao> GetGZHList()
+        {
+            var sql = @"SELECT [F_Id]
+                              ,[F_GZHName]
+                              ,[F_WXName]
+                              ,[F_Logo]
+                              ,[F_About]
+                              ,[F_CreateDate]
+                          FROM [Tab_GongZhongHao]
+                      ORDER BY [F_Id] DESC";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                return conn.Query<Tab_GongZhongHao>(sql).ToList();
+            }
         }
     }
 }

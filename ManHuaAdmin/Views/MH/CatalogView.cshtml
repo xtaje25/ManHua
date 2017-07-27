@@ -1,29 +1,20 @@
 ﻿@using ManHuaAdmin.Models;
 @{
-    ViewBag.Title = "Catalog";
-    VM_Catalog vm = ViewBag.ca;
+    ViewBag.Title = "CatalogView";
+    VM_Page<Tab_MHCatalog> vm = ViewBag.ca;
 }
 
-<form id="pagerForm" method="post" action="@Url.Content("~/GZH/Catalog")">
+<form id="pagerForm" method="post" action="@Url.Content("~/MH/CatalogView")">
     <input type="hidden" name="pageNum" value="1" />
     <input type="hidden" name="numPerPage" value="@(vm.numPerPage)" />
 </form>
 
 <div class="pageHeader">
-    <form onsubmit="return navTabSearch(this);" action="@Url.Content("~/GZH/Catalog")" method="post" onreset="$(this).find('select.combox').comboxReset()">
+    <form onsubmit="return navTabSearch(this);" action="@Url.Content("~/MH/CatalogView")" method="post" onreset="$(this).find('select.combox').comboxReset()">
         <div class="searchBar">
-            @*<table class="searchContent">
-                    <tr>
-                        <td>
-                            文章标题：<input type="text" name="title" value="@(vm.title)" />
-                        </td>
-                    </tr>
-                </table>*@
             <div class="subBar">
                 <ul>
-                    @*<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-                        <li><div class="button"><div class="buttonContent"><button type="reset">重置</button></div></div></li>*@
-                    <li><a class="button" href="@Url.Content("~/GZH/AddView")" target="dialog" mask="true" title="添加公号"><span>添加公号</span></a></li>
+                    <li><a class="button" href="@Url.Content("~/MH/AddView")" target="dialog" mask="true" title="添加公号"><span>添加漫画目录</span></a></li>
                 </ul>
             </div>
         </div>
@@ -36,9 +27,10 @@
         <thead>
             <tr>
                 <th>编号</th>
-                <th>公号名称</th>
-                <th>微信号</th>
+                <th>漫画名称</th>
+                <th>添加人</th>
                 <th>添加时间</th>
+                <th>关联公众号</th>
                 <th width="200">编辑</th>
             </tr>
         </thead>
@@ -50,13 +42,13 @@
                 {
                     <tr target="sid_user" rel="@i">
                         <td><div>@(item.F_Id)</div></td>
-                        <td><div>@(item.F_GZHName)</div></td>
-                        <td><div>@(item.F_WXName)</div></td>
+                        <td><div>@(item.F_Catalog)</div></td>
+                        <td><div>@(item.userName)</div></td>
                         <td><div>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</div></td>
+                        <td><div>@(item.GZHName)</div></td>                        
                         <td>
                             <div>
-                                <a title="删除" target="ajaxTodo" href="@Url.Content("~/GZH/Delete")?id=@(item.F_Id)" class="btnDel">删除</a>
-                                <a title="编辑" target="dialog" href="@Url.Content("~/GZH/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>
+                                <a title="编辑" target="dialog" href="@Url.Content("~/MH/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>
                             </div>
                         </td>
                     </tr>
@@ -81,4 +73,5 @@
 
     </div>
 </div>
+
 

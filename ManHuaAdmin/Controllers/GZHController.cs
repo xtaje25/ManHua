@@ -1,5 +1,8 @@
 ﻿using ManHuaAdmin.Models;
 using ManHuaAdmin.Service;
+using ManHuaAdmin.Utility;
+using Qiniu.Http;
+using Qiniu.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +17,7 @@ namespace ManHuaAdmin.Controllers
 
         [CustomAuthorize]
         [CustomAjaxLogin]
-        public ActionResult Catalog()
+        public ActionResult CatalogView()
         {
             var option = new int[] { 20, 50, 100, 200 };
 
@@ -34,7 +37,7 @@ namespace ManHuaAdmin.Controllers
 
             var list = _gzhs.GetGZHList(pageIndex, pageSize, out totalPage, out totalRecord);
 
-            VM_Catalog vm = new VM_Catalog();
+            VM_Page<Tab_GongZhongHao> vm = new VM_Page<Tab_GongZhongHao>();
             vm.pageNum = pageIndex;
             vm.numPerPage = pageSize;
             vm.totalcount = totalRecord;
@@ -48,8 +51,35 @@ namespace ManHuaAdmin.Controllers
 
         [CustomAuthorize]
         [CustomAjaxLogin]
-        public ActionResult Info()
+        public ActionResult InfoView()
         {
+            var option = new int[] { 20, 50, 100, 200 };
+
+            var pageNum = Request.Form["pageNum"];
+            var numPerPage = Request.Form["numPerPage"];
+
+            var pageIndex = 0;
+            var pageSize = 0;
+            var totalPage = 0;
+            var totalRecord = 0;
+
+            int.TryParse(pageNum, out pageIndex);
+            int.TryParse(numPerPage, out pageSize);
+
+            pageIndex = pageIndex == 0 ? 1 : pageIndex;
+            pageSize = pageSize == 0 ? 50 : pageSize;
+
+            var list = _gzhs.GetGZHList(pageIndex, pageSize, out totalPage, out totalRecord);
+
+            VM_Page<Tab_GongZhongHao> vm = new VM_Page<Tab_GongZhongHao>();
+            vm.pageNum = pageIndex;
+            vm.numPerPage = pageSize;
+            vm.totalcount = totalRecord;
+            vm.option = option;
+            vm.list = list;
+
+            ViewBag.ca = vm;
+
             return View();
         }
 
@@ -130,7 +160,7 @@ namespace ManHuaAdmin.Controllers
             var id = Request.Form["id"];
 
             var gid = 0;
-            if (!int.TryParse(id, out gid))
+            if (!int.TryParse(id, out gid) || gid == 0)
             {
                 return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公众号不存在" });
             }
@@ -174,7 +204,92 @@ namespace ManHuaAdmin.Controllers
         [CustomAjaxLogin]
         public ActionResult Delete()
         {
-            return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+            var id = Request.QueryString["id"];
+
+            var gid = 0;
+            if (!int.TryParse(id, out gid) || gid == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公众号不存在" });
+            }
+
+            int i = _gzhs.DeleteGZH(gid);
+            if (i == 1)
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+            }
+            else
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公众号不存在" });
+            }
+        }
+
+        [CustomAuthorize]
+        [CustomAjaxLogin]
+        public ActionResult InfoEditView()
+        {
+            var id = Request.QueryString["id"];
+
+            var gid = 0;
+            int.TryParse(id, out gid);
+
+            ViewBag.g = null;
+
+            if (gid > 0)
+            {
+                var g = _gzhs.GetGZH(gid);
+                ViewBag.g = g;
+            }
+
+            return View();
+        }
+
+        [CustomAuthorize]
+        [CustomAjaxLogin]
+        public ActionResult InfoEdit()
+        {
+            var id = Request.Form["id"];
+            var about = Request.Form["about"];
+
+            var gid = 0;
+            if (!int.TryParse(id, out gid) || gid == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公号不存在" });
+            }
+
+            if (about != null && about.Length > 4000)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公号简介长度必须小于4000字符" });
+            }
+
+            var logo = "";
+            if (Request.Files.Count > 0)
+            {
+                var stream = Request.Files[0].InputStream;
+                var key = "LOGO/" + gid + "/" + gid + ".jpg";
+
+                FormUploader fu = new FormUploader();
+                HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET));
+                if (result.Code == 200)
+                {
+                    logo = QN.IMGSRC + "/" + key;
+                }
+            }
+
+            Tab_GongZhongHao g = new Tab_GongZhongHao();
+            g.F_About = (about != null && about.Length > 0) ? about : null;
+            g.F_Logo = logo != "" ? logo : null;
+            g.F_Id = gid;
+
+            var i = _gzhs.UpdateGZHInfo(g);
+
+            if (i == 1)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+            }
+            else
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+            }
         }
     }
 }
