@@ -121,15 +121,10 @@ namespace ManHuaAdmin.Controllers
                             #region MyRegion
                             var mlist = _mhs.GetMHList(id);
 
-                            string[][] array = new string[mlist.Count + 1][];
-                            array[0] = new string[2];
-                            array[0][0] = "0";
-                            array[0][1] = "请选择";
-                            for (int j = 1; j <= mlist.Count; j++)
+                            object[] array = new object[mlist.Count];
+                            for (int j = 0; j < mlist.Count; j++)
                             {
-                                array[j] = new string[2];
-                                array[j][0] = mlist[j - 1].F_Id.ToString();
-                                array[j][1] = mlist[j - 1].F_Catalog;
+                                array[j] = new { id = mlist[j].F_Id, val = mlist[j].F_Catalog };
                             }
                             arr = array;
                             #endregion
@@ -139,16 +134,11 @@ namespace ManHuaAdmin.Controllers
                             #region MyRegion
                             var slist = _ss.GetSaleist(id);
 
-                            string[][] array2 = new string[slist.Count + 1][];
-                            array2[0] = new string[2];
-                            array2[0][0] = "0";
-                            array2[0][1] = "请选择";
-                            for (int j = 1; j <= slist.Count; j++)
+                            object[] array2 = new object[slist.Count];
+                            for (int j = 0; j < slist.Count; j++)
                             {
-                                array2[j] = new string[2];
-                                array2[j][0] = slist[j - 1].F_Id.ToString();
                                 var value = "";
-                                switch (slist[j - 1].F_Id)
+                                switch (slist[j].F_Id)
                                 {
                                     case 1:
                                         value = "每次10章";
@@ -174,7 +164,7 @@ namespace ManHuaAdmin.Controllers
                                         value = "年度(31天x12)";
                                         break;
                                 }
-                                array2[j][1] = value;
+                                array2[j] = new { id = slist[j].F_Id, val = value };
                             }
                             arr = array2;
                             #endregion

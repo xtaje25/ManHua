@@ -9,13 +9,6 @@
         <div class="pageFormContent" layoutH="56">
             <p>
                 <label>公众号名称：</label>
-                @*<select id="gid" name="gid" class="combox" style="width:180px" ref="mhid" refUrl="@Url.Content("~/Sale/Get?t=1&")i={value}">
-                        <option value="0">请选择</option>
-                        @foreach (var item in glist)
-                        {
-                            <option value="@item.F_Id">@item.F_GZHName</option>
-                        }
-                    </select>*@
                 <select id="gid" name="gid" style="width:180px" onchange="s1(this.value)">
                     <option value="0">请选择</option>
                     @foreach (var item in glist)
@@ -76,7 +69,7 @@
                 target.append('<option value="0">请选择</option>');
                 if (result.length > 0) {
                     $.each(result, function (key, val) {
-                        target.append("<option value='" + key + "'>" + val + "</option>");
+                        target.append("<option value='" + val.id + "'>" + val.val + "</option>");
                     })
                 }
             }
@@ -91,12 +84,12 @@
                 alert('error');
             },
             success: function (result) {
-                var target = $("#mhid");
+                var target = $("#sid");
                 target.empty();
                 target.append('<option value="0">请选择</option>');
                 if (result.length > 0) {
                     $.each(result, function (key, val) {
-                        target.append("<option value='" + key + "'>" + val + "</option>");
+                        target.append("<option value='" + val.id + "'>" + val.val + "</option>");
                     })
                 }
             }
