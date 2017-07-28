@@ -367,6 +367,49 @@ namespace ManHuaAdmin.Models
         /// </summary>
         public string userName { get; set; }
     }
+
+    public class Tab_MHSale
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_Id { get; set; }
+
+        public int F_SaleType { get; set; }
+
+        public int F_Price { get; set; }
+
+        public DateTime F_CreateDate { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public string GZHName { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public string Catalog { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public int Type { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public int TypeValue { get; set; }
+    }
+
+    public class Tab_SaleType
+    {
+        [Key]
+        public int F_Id { get; set; }
+
+        public int F_Type { get; set; }
+
+        public int F_TypeValue { get; set; }
+    }
     #endregion
 
 }

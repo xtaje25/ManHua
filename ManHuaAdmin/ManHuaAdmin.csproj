@@ -247,12 +247,14 @@
     <Compile Include="Repository\GongZhongHaoRepository.cs" />
     <Compile Include="Repository\MenuRepository.cs" />
     <Compile Include="Repository\MHCatalogRepository.cs" />
+    <Compile Include="Repository\SaleRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Service\ArticleService.cs" />
     <Compile Include="Service\CustomAuthorizeAttribute.cs" />
     <Compile Include="Service\GongZhongHaoService.cs" />
     <Compile Include="Service\MenuService.cs" />
     <Compile Include="Service\MHCatalogService.cs" />
+    <Compile Include="Service\SaleService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Utility\QN.cs" />
     <Compile Include="Utility\SerializeHelper.cs" />
@@ -273,7 +275,7 @@
     <Content Include="Views\GZH\InfoView.cshtml" />
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\MH\CatalogView.cshtml" />
-    <Content Include="Views\Sale\Price.cshtml" />
+    <Content Include="Views\Sale\PriceView.cshtml" />
     <Content Include="Views\Order\Pay.cshtml" />
     <Content Include="Views\Order\Cancel.cshtml" />
     <Content Include="Views\Home\Password.cshtml" />
@@ -282,6 +284,8 @@
     <Content Include="Views\GZH\InfoEditView.cshtml" />
     <Content Include="Views\MH\AddView.cshtml" />
     <Content Include="Views\MH\EditView.cshtml" />
+    <Content Include="Views\Sale\AddView.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

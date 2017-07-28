@@ -10,15 +10,13 @@
 </form>
 
 <div class="pageHeader">
-    <form onsubmit="return navTabSearch(this);" action="@Url.Content("~/GZH/CatalogView")" method="post" onreset="$(this).find('select.combox').comboxReset()">
-        <div class="searchBar">
-            <div class="subBar">
-                <ul>
-                    <li><a class="button" href="@Url.Content("~/GZH/AddView")" target="dialog" mask="true" title="添加公号"><span>添加公号</span></a></li>
-                </ul>
-            </div>
+    <div class="searchBar">
+        <div class="subBar">
+            <ul>
+                <li><a class="button" href="@Url.Content("~/GZH/AddView")" target="dialog" mask="true" title="添加公号"><span>添加公号</span></a></li>
+            </ul>
         </div>
-    </form>
+    </div>
 </div>
 <div class="pageContent">
     <div class="panelBar">
