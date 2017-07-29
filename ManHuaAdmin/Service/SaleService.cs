@@ -20,5 +20,35 @@ namespace ManHuaAdmin.Service
         {
             return sr.GetSaleist(type);
         }
+
+        public List<Tab_SaleType> GetSaleist()
+        {
+            return sr.GetSaleist();
+        }
+
+        public int AddMHSale(Tab_MHSale m)
+        {
+            return sr.AddMHSale(m);
+        }
+
+        public Tab_MHCatalog GetMHGZH(int mhid)
+        {
+            return sr.GetMHGZH(mhid);
+        }
+
+        public Tab_MHSale GetHMSale(int id, int sid)
+        {
+            return sr.GetHMSale(id, sid);
+        }
+
+        public int UpdateMHS(Tab_MHSale m)
+        {
+            return sr.UpdateMHS(m);
+        }
+
+        public int DeleteMHS(Tab_MHSale m)
+        {
+            return sr.DeleteMHS(m);
+        }
     }
 }

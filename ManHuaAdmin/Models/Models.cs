@@ -371,9 +371,13 @@ namespace ManHuaAdmin.Models
     public class Tab_MHSale
     {
         [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int F_Id { get; set; }
 
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int F_SaleType { get; set; }
 
         public int F_Price { get; set; }
@@ -399,6 +403,11 @@ namespace ManHuaAdmin.Models
         /// 自定义
         /// </summary>
         public int TypeValue { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public int SaleType { get; set; }
     }
 
     public class Tab_SaleType

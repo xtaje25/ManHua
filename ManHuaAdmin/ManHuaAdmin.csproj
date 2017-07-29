@@ -286,6 +286,7 @@
     <Content Include="Views\MH\EditView.cshtml" />
     <Content Include="Views\Sale\AddView.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Sale\EditView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

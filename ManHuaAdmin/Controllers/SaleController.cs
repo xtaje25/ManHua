@@ -63,24 +63,49 @@ namespace ManHuaAdmin.Controllers
         [CustomAjaxLogin]
         public ActionResult Add()
         {
-            var name = Request.Form["name"];
-            var wxin = Request.Form["wxin"];
+            var a = Request.Form["gid"];    // 公众号名称
+            var b = Request.Form["mhid"];   // 漫画名称
+            var c = Request.Form["st"];     // 收费类型
+            var d = Request.Form["sid"];    // 收费方式
+            var e = Request.Form["price"];  // 收费价格
 
-            if (name == null || name.Length < 1 || name.Length > 200)
+            var gid = 0;
+            var mhid = 0;
+            var st = 0;
+            var sid = 0;
+            var price = 0;
+
+            if (!int.TryParse(a, out gid) || gid == 0)
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "长度必须大于1个字符小于200字符" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择公众号名称" });
             }
 
-            if (wxin == null || wxin.Length < 1 || wxin.Length > 200)
+            if (!int.TryParse(b, out mhid) || mhid == 0)
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "长度必须大于1个字符小于200字符" });
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择漫画" });
             }
 
-            Tab_GongZhongHao m = new Tab_GongZhongHao();
-            m.F_GZHName = name;
-            m.F_WXName = wxin;
+            if (!int.TryParse(c, out st) || st == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择收费类型" });
+            }
 
-            int i = 9; // 0：没执行；1：执行成功；2：公号名称重复；3：关联微信号重复；
+            if (!int.TryParse(d, out sid) || sid == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择收费方式" });
+            }
+
+            if (!int.TryParse(e, out price) || price == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请填写收费价格" });
+            }
+
+            Tab_MHSale m = new Tab_MHSale();
+            m.F_Id = mhid;
+            m.F_SaleType = sid;
+            m.F_Price = price;
+
+            int i = _ss.AddMHSale(m);
 
             if (i == 1)
             {
@@ -88,17 +113,158 @@ namespace ManHuaAdmin.Controllers
             }
             else if (i == 2)
             {
-                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "公号名称重复" });
-            }
-            else if (i == 3)
-            {
-                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "关联微信号重复" });
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "漫画和收费方式已经添加过" });
             }
             else
             {
                 return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
             }
         }
+
+        [CustomAuthorize]
+        [CustomAjaxLogin]
+        public ActionResult EditView()
+        {
+            var a = Request.QueryString["id"]; // 漫画id
+            var b = Request.QueryString["sid"]; // 售卖类型id
+
+            var mhid = 0;
+            var sid = 0;
+
+            if (!int.TryParse(a, out mhid) || mhid == 0)
+            {
+                return View();
+            }
+
+            if (!int.TryParse(b, out sid) || sid == 0)
+            {
+                return View();
+            }
+
+            var m = _ss.GetMHGZH(mhid);
+
+            var m2 = _ss.GetHMSale(mhid, sid);
+
+            var list = _ss.GetSaleist();
+
+            var sm = list.Find(x => x.F_Id == sid);
+
+            var sl = list.FindAll(x => x.F_Type == sm.F_Type);
+
+            ViewBag.m = m;
+            ViewBag.m2 = m2;
+            ViewBag.sm = sm;
+            ViewBag.sl = sl;
+
+            return View();
+        }
+
+        [CustomAuthorize]
+        [CustomAjaxLogin]
+        public ActionResult Edit()
+        {
+            var a = Request.Form["gid"];    // 公众号名称
+            var b = Request.Form["mhid"];   // 漫画名称
+            var c = Request.Form["st"];     // 收费类型
+            var d = Request.Form["sid"];    // 收费方式
+            var e = Request.Form["price"];  // 收费价格
+            var f = Request.Form["sid2"];   // 原收费方式
+
+            var gid = 0;
+            var mhid = 0;
+            var st = 0;
+            var sid = 0;
+            var price = 0;
+            var sid2 = 0;
+
+            if (!int.TryParse(a, out gid) || gid == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择公众号名称" });
+            }
+
+            if (!int.TryParse(b, out mhid) || mhid == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择漫画" });
+            }
+
+            if (!int.TryParse(c, out st) || st == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择收费类型" });
+            }
+
+            if (!int.TryParse(d, out sid) || sid == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择收费方式" });
+            }
+
+            if (!int.TryParse(e, out price) || price == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请填写收费价格" });
+            }
+
+            if (!int.TryParse(f, out sid2) || sid2 == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "请选择收费方式" });
+            }
+
+            Tab_MHSale m = new Tab_MHSale();
+            m.F_Id = mhid;
+            m.F_SaleType = sid;
+            m.F_Price = price;
+            m.SaleType = sid2;
+
+            int i = _ss.UpdateMHS(m);
+
+            if (i == 1)
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+            }
+            else if (i == 2)
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "漫画和收费方式已经添加过" });
+            }
+            else
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+            }
+        }
+
+        [CustomAuthorize]
+        [CustomAjaxLogin]
+        public ActionResult Delete()
+        {
+            var a = Request.QueryString["id"];     // 漫画id
+            var b = Request.QueryString["sid"];    // 收费方式id
+
+            var mhid = 0;
+            var sid = 0;
+
+            if (!int.TryParse(a, out mhid) || mhid == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "漫画不存在" });
+            }
+
+            if (!int.TryParse(b, out sid) || sid == 0)
+            {
+                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "收费方式不存在" });
+            }
+
+            Tab_MHSale m = new Tab_MHSale();
+            m.F_Id = mhid;
+            m.F_SaleType = sid;
+
+            int i = _ss.DeleteMHS(m);
+
+            if (i == 1)
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+            }
+            else
+            {
+                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+            }
+        }
+
 
         /// <summary>
         /// //[{"key", "value"},{"key", "value"}]

@@ -1,0 +1,101 @@
+﻿@using ManHuaAdmin.Models;
+@{
+    ViewBag.Title = "EditView";
+    Tab_MHCatalog m = ViewBag.m;
+    Tab_MHSale m2 = ViewBag.m2;
+    Tab_SaleType sm = ViewBag.sm;
+    List<Tab_SaleType> sl = ViewBag.sl;
+}
+
+<div class="pageContent">
+    <form method="post" action="@Url.Content("~/Sale/Edit")" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="56">
+            <p>
+                <label>公众号名称：</label>
+                <input readonly="readonly" class="textInput readonly" type="text" size="30" value="@(m!=null?m.GZHName:"")" />
+                <input type="hidden" name="gid" value="@(m!=null?m.F_GZHId:0)" />
+            </p>
+            <p>
+                <label>漫画名称：</label>
+                <input readonly="readonly" class="textInput readonly" type="text" size="30" value="@(m!=null?m.F_Catalog:"")" />
+                <input type="hidden" name="mhid" value="@(m!=null?m.F_Id:0)" />
+            </p>
+            <p>
+                <label>收费类型：</label>
+                <select id="st" name="st" style="width:180px" onchange="s2(this.value)">
+                    <option value="0">请选择</option>
+                    <option value="1" @(sm.F_Type == 1 ? "selected=\"selected\"" : "")>章节</option>
+                    <option value="2" @(sm.F_Type == 2 ? "selected=\"selected\"" : "")>时间</option>
+                </select>
+            </p>
+            <p>
+                <label>收费方式：</label>
+                <select id="sid" name="sid" style="width:180px">
+                    <option value="0">请选择</option>
+                    @foreach (var i in sl)
+                    {
+                        switch (i.F_Id)
+                        {
+                            case 1:
+                                <option value="1" @(sm.F_Id == 1 ? "selected=\"selected\"" : "")>每次10章</option>
+                                break;
+                            case 2:
+                                <option value="2" @(sm.F_Id == 2 ? "selected=\"selected\"" : "")>每次20章</option>
+                                break;
+                            case 3:
+                                <option value="3" @(sm.F_Id == 3 ? "selected=\"selected\"" : "")>每次30章</option>
+                                break;
+                            case 4:
+                                <option value="4" @(sm.F_Id == 4 ? "selected=\"selected\"" : "")>月度(31天x1)</option>
+                                break;
+                            case 5:
+                                <option value="5" @(sm.F_Id == 5 ? "selected=\"selected\"" : "")>季度(31天x3)</option>
+                                break;
+                            case 6:
+                                <option value="6" @(sm.F_Id == 6 ? "selected=\"selected\"" : "")>年度(31天x12)</option>
+                                break;
+                        }
+                    }
+                </select>
+                <input type="hidden" name="sid2" value="@(sm!=null?sm.F_Id:0)" />
+            </p>
+            <p>
+                <label>收费价格(单位元)：</label>
+                <input name="price" class="required digits" type="text" size="30" min="1" max="1000" value="@(m2!=null?m2.F_Price.ToString():"")" />
+            </p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div>
+                </li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+<script>
+    function s2(id) {
+        $.ajax({
+            type: 'post',
+            url: '/Sale/Get?t=2&i=' + id,
+            data: { t: 1, i: id },
+            error: function () {
+                alert('error');
+            },
+            success: function (result) {
+                var target = $("#sid");
+                target.empty();
+                target.append('<option value="0">请选择</option>');
+                if (result.length > 0) {
+                    $.each(result, function (key, val) {
+                        target.append("<option value='" + val.id + "'>" + val.val + "</option>");
+                    })
+                }
+            }
+        });
+    }
+</script>
+

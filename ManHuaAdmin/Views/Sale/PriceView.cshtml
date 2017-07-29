@@ -39,46 +39,42 @@
                 foreach (var item in vm.list)
                 {
                     <tr target="sid_user" rel="@i">
-                        <th>@(item.GZHName)</th>
-                        <th>@(item.Catalog)</th>
+                        <td>@(item.GZHName)</td>
+                        <td>@(item.Catalog)</td>
                         @switch (item.F_SaleType)
                         {
                             case 1:
-                                <th>每次10章</th>
+                                <td>每次10章</td>
                                 break;
-
                             case 2:
-                                <th>每次20章</th>
+                                <td>每次20章</td>
                                 break;
-
                             case 3:
-                                <th>每次30章</th>
+                                <td>每次30章</td>
                                 break;
-
                             case 4:
-                                <th>月度(31天x1)</th>
+                                <td>月度(31天x1)</td>
                                 break;
-
                             case 5:
-                                <th>季度(31天x3)</th>
+                                <td>季度(31天x3)</td>
                                 break;
-
                             case 6:
-                                <th>年度(31天x12)</th>
+                                <td>年度(31天x12)</td>
                                 break;
-
                             default:
-                                <th></th>
+                                <td></td>
                                 break;
                         }
-                        <th>@(item.F_Price) 元</th>
-                        <th>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</th>
+                        <td>@(item.F_Price) 元</td>
+                        <td>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</td>
                         <td>
                             <div>
-                                <a title="删除" target="ajaxTodo" href="@Url.Content("~/Sale/Delete")?id=@(item.F_Id)" class="btnDel">删除</a>
-                                @*<a title="编辑" target="dialog" href="@Url.Content("~/Sale/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>*@
+                                <a title="删除" target="ajaxTodo" href="@Url.Content("~/Sale/Delete")?id=@(item.F_Id)&sid=@(item.F_SaleType)" class="btnDel">删除</a>
+                                <a title="编辑" target="dialog" href="@Url.Content("~/Sale/EditView")?id=@(item.F_Id)&sid=@(item.F_SaleType)" class="btnEdit" minable="false" mask="true">编辑</a>
                             </div>
+
                         </td>
+
                     </tr>
                     i++;
                 }
@@ -101,4 +97,3 @@
 
     </div>
 </div>
-
