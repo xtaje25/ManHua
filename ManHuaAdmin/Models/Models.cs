@@ -305,6 +305,26 @@ namespace ManHuaAdmin.Models
         public string F_Password { get; set; }
 
         public DateTime F_CreateDate { get; set; }
+
+        /// <summary>
+        /// 自定义        
+        /// </summary>
+        public int GZHId { get; set; }
+
+        /// <summary>
+        /// 自定义        
+        /// </summary>
+        public int RoleId { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public string RoleName { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public string GZHName { get; set; }
     }
 
     public class Tab_User_Role_Relation
@@ -418,6 +438,24 @@ namespace ManHuaAdmin.Models
         public int F_Type { get; set; }
 
         public int F_TypeValue { get; set; }
+    }
+
+    public class Tab_User_GZH_Relation
+    {
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_UserId { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_GZHId { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public string name { get; set; }
     }
     #endregion
 

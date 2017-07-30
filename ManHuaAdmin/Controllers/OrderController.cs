@@ -8,12 +8,12 @@ namespace ManHuaAdmin.Controllers
 {
     public class OrderController : Controller
     {
-        public ActionResult Pay()
+        public ActionResult PayView()
         {
             return View();
         }
 
-        public ActionResult Cancel()
+        public ActionResult CancelView()
         {
             return View();
         }

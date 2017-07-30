@@ -1,0 +1,48 @@
+﻿@using ManHuaAdmin.Models;
+@{
+    ViewBag.Title = "AddView";
+    List<Tab_GongZhongHao> list = ViewBag.list;
+    Tab_User_GZH_Relation ug = ViewBag.id;
+}
+
+<div class="pageContent">
+    <form method="post" action="@Url.Content("~/User/Edit")" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="56">
+            <p>
+                <label>关联公众号：</label>
+                <select name="gid" ref="w_combox_city">
+                    @foreach (var it in list)
+                    {
+                        if (ug != null && ug.F_GZHId == it.F_Id)
+                        {
+                            <option value="@it.F_Id" @((ug != null && ug.F_GZHId == it.F_Id) ? "selected=\"selected\"" : "")>@it.F_GZHName</option>
+                        }
+                    }
+                </select>
+                <input type="hidden" name="uid" value="@(ug!=null?ug.F_UserId:0)" />
+            </p>
+            <p>
+                <label>登录账号：</label>
+                <input name="name" type="text" size="30" readonly="readonly" value="@(ug!=null?ug.name:"")" />
+            </p>
+            <p>
+                <label>登录密码：</label>
+                <input name="pwd" type="checkbox" value="1" /> 重置密码
+            </p>
+            <p>
+                <label>账号权限：</label>
+                <input name="auth" type="text" size="30" readonly="readonly" value="公号管理员" />
+            </p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div>
+                </li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

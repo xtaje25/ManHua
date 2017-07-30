@@ -11,12 +11,16 @@ namespace ManHuaAdmin.Repository
 {
     public class SaleRepository : ConncetionHelper
     {
-        public List<Tab_MHSale> GetMHPriceList(int pageIndex, int pageSize, out int totalPage, out int totalRecord)
+        public List<Tab_MHSale> GetMHPriceList(int gid, int pageIndex, int pageSize, out int totalPage, out int totalRecord)
         {
             PageCriteria page = new PageCriteria();
             page.TableName = "Tab_MHSale a JOIN Tab_SaleType b ON a.F_SaleType = b.F_Id JOIN Tab_MHCatalog c ON c.F_Id = a.F_Id JOIN Tab_GongZhongHao d ON d.F_Id = c.F_GZHId";
             page.Fields = "d.F_GZHName GZHName, c.F_Catalog Catalog, a.F_Id, a.F_SaleType, b.F_Type Type, b.F_TypeValue TypeValue, a.F_Price, a.F_CreateDate";
             page.Condition = "1 = 1";
+            if (gid > 0)
+            {
+                page.Condition += " AND d.F_Id = " + gid;
+            }
             page.Sort = "a.F_Id DESC";
             page.PageSize = pageSize;
             page.CurrentPage = pageIndex;

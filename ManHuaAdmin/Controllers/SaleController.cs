@@ -22,19 +22,22 @@ namespace ManHuaAdmin.Controllers
 
             var pageNum = Request.Form["pageNum"];
             var numPerPage = Request.Form["numPerPage"];
+            var id = Request.Form["gid"];
 
             var pageIndex = 0;
             var pageSize = 0;
             var totalPage = 0;
             var totalRecord = 0;
+            var gid = 0;
 
             int.TryParse(pageNum, out pageIndex);
             int.TryParse(numPerPage, out pageSize);
 
             pageIndex = pageIndex == 0 ? 1 : pageIndex;
             pageSize = pageSize == 0 ? 50 : pageSize;
+            int.TryParse(id, out gid);
 
-            var list = _ss.GetMHPriceList(pageIndex, pageSize, out totalPage, out totalRecord);
+            var list = _ss.GetMHPriceList(gid, pageIndex, pageSize, out totalPage, out totalRecord);
 
             VM_Page<Tab_MHSale> vm = new VM_Page<Tab_MHSale>();
             vm.pageNum = pageIndex;
@@ -44,6 +47,8 @@ namespace ManHuaAdmin.Controllers
             vm.list = list;
 
             ViewBag.ca = vm;
+            ViewBag.id = gid;
+            ViewBag.glist = _gzhs.GetGZHList();
 
             return View();
         }

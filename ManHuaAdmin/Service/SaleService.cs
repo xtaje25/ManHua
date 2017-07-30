@@ -11,9 +11,9 @@ namespace ManHuaAdmin.Service
     {
         SaleRepository sr = new SaleRepository();
 
-        public List<Tab_MHSale> GetMHPriceList(int pageIndex, int pageSize, out int totalPage, out int totalRecord)
+        public List<Tab_MHSale> GetMHPriceList(int gid, int pageIndex, int pageSize, out int totalPage, out int totalRecord)
         {
-            return sr.GetMHPriceList(pageIndex, pageSize, out totalPage, out totalRecord);
+            return sr.GetMHPriceList(gid, pageIndex, pageSize, out totalPage, out totalRecord);
         }
 
         public List<Tab_SaleType> GetSaleist(int type)

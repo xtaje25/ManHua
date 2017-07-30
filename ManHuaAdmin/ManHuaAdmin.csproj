@@ -273,11 +273,11 @@
     <Content Include="Views\Home\AjaxLogin.cshtml" />
     <Content Include="Views\GZH\CatalogView.cshtml" />
     <Content Include="Views\GZH\InfoView.cshtml" />
-    <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\User\ListView.cshtml" />
     <Content Include="Views\MH\CatalogView.cshtml" />
     <Content Include="Views\Sale\PriceView.cshtml" />
-    <Content Include="Views\Order\Pay.cshtml" />
-    <Content Include="Views\Order\Cancel.cshtml" />
+    <Content Include="Views\Order\PayView.cshtml" />
+    <Content Include="Views\Order\CancelView.cshtml" />
     <Content Include="Views\Home\Password.cshtml" />
     <Content Include="Views\GZH\AddView.cshtml" />
     <Content Include="Views\GZH\EditView.cshtml" />
@@ -287,6 +287,8 @@
     <Content Include="Views\Sale\AddView.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Sale\EditView.cshtml" />
+    <Content Include="Views\User\AddView.cshtml" />
+    <Content Include="Views\User\EditView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

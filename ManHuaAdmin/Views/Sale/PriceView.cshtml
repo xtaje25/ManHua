@@ -2,26 +2,46 @@
 @{
     ViewBag.Title = "PriceView";
     VM_Page<Tab_MHSale> vm = ViewBag.ca;
+    List<Tab_GongZhongHao> glist = ViewBag.glist;
+    int gid = ViewBag.id;
 }
 
 <form id="pagerForm" method="post" action="@Url.Content("~/Sale/PriceView")">
     <input type="hidden" name="pageNum" value="1" />
     <input type="hidden" name="numPerPage" value="@(vm.numPerPage)" />
+    <input type="hidden" id="gid" name="gid" value="@(gid)" />
 </form>
 
 <div class="pageHeader">
-    <div class="searchBar">
-        <div class="subBar">
-            <ul>
-                <li><a class="button" href="@Url.Content("~/Sale/AddView")" target="dialog" mask="true" title="添加定价"><span>添加定价</span></a></li>
-            </ul>
+    <form id="form1" onsubmit="return navTabSearch(this);" action="@Url.Content("~/Sale/PriceView")" method="post">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        公众号：
+                        <select name="gid" style="width:180px" onchange="ch(this.value)">
+                            <option value="0">请选择</option>
+                            @foreach (var item in glist)
+                            {
+                                <option value="@item.F_Id" @(gid == item.F_Id ? "selected=\"selected\"" : "")>@item.F_GZHName</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <li><a class="button" href="@Url.Content("~/Sale/AddView")" target="dialog" mask="true" title="添加定价"><span>添加定价</span></a></li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 <div class="pageContent">
     <div class="panelBar">
     </div>
-    <table class="table" width="100%" layoutH="111">
+    <table class="table" width="100%" layoutH="137">
         <thead>
             <tr>
                 <th>公众号名称</th>
@@ -97,3 +117,5 @@
 
     </div>
 </div>
+
+
