@@ -1,6 +1,8 @@
 ﻿using ManHuaAdmin.Models;
 using ManHuaAdmin.Service;
 using ManHuaAdmin.Utility;
+using Qiniu.Http;
+using Qiniu.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,35 +134,51 @@ namespace ManHuaAdmin.Controllers
 
             if (name == null || name.Length < 1 || name.Length > 50)
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "长度必须大于1个字符小于50字符" });
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "长度必须大于1个字符小于50字符" });
             }
 
             var gid = 0;
             if (!int.TryParse(id1, out gid) || gid == 0)
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公众号不存在" });
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公众号不存在" });
             }
 
             var id = 0;
             if (!int.TryParse(id2, out id) || id == 0)
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "漫画不存在" });
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "漫画不存在" });
+            }
+
+            var logo = "";
+            if (Request.Files.Count > 0)
+            {
+                var str = Tools.DateTimeToTimeStamp(DateTime.Now);
+                var lg = str.Substring(0, str.IndexOf('.'));
+                var key = "MH/" + gid + "/" + id + "/" + lg + ".jpg";
+
+                FormUploader fu = new FormUploader();
+                HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET, key));
+                if (result.Code == 200)
+                {
+                    logo = QN.IMGSRC + "/" + key;
+                }
             }
 
             Tab_MHCatalog m = new Tab_MHCatalog();
             m.F_Catalog = name;
             m.F_GZHId = gid;
+            m.F_Logo = logo != "" ? logo : null;
             m.F_Id = id;
 
             int i = _ms.UpdateMH(m);
 
             if (i == 1)
             {
-                return Json(new DWZJson { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+                return View(new DWZJson { statusCode = (int)DWZStatusCode.OK, message = "成功" });
             }
             else
             {
-                return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+                return View(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
             }
         }
     }

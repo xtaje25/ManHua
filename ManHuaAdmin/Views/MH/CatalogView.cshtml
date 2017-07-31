@@ -32,7 +32,7 @@
                 <th>添加人</th>
                 <th>添加时间</th>
                 <th>关联公众号</th>
-                
+
                 <th width="200">编辑</th>
             </tr>
         </thead>
@@ -45,7 +45,14 @@
                     <tr target="sid_user" rel="@i">
                         <td><div>@(item.F_Id)</div></td>
                         <td><div>@(item.F_Catalog)</div></td>
-                        <td><div></div></td>
+                        @if (item.F_Logo != null)
+                        {
+                            <td><div><a target="_blank" href="@(item.F_Logo+"-200x200.jpg")"><img src="@(item.F_Logo+"-100x100.jpg")" /></a></div></td>
+                        }
+                        else
+                        {
+                            <td><div></div></td>
+                        }
                         <td><div>@(item.userName)</div></td>
                         <td><div>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</div></td>
                         <td><div>@(item.GZHName)</div></td>

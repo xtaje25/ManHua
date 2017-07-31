@@ -371,6 +371,9 @@ namespace ManHuaAdmin.Models
         [StringLength(50)]
         public string F_Catalog { get; set; }
 
+        [StringLength(1000)]
+        public string F_Logo { get; set; }
+
         public int F_GZHId { get; set; }
 
         public int F_CreateUser { get; set; }
@@ -386,11 +389,6 @@ namespace ManHuaAdmin.Models
         /// 自定义
         /// </summary>
         public string userName { get; set; }
-
-        /// <summary>
-        /// 自定义
-        /// </summary>
-        public string logo { get; set; }
     }
 
     public class Tab_MHSale

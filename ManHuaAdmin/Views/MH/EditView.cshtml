@@ -6,16 +6,20 @@
 }
 
 <div class="pageContent">
-    <form method="post" action="@Url.Content("~/MH/Edit")" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+    <form method="post" action="@Url.Content("~/MH/Edit")" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return iframeCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="56">
             <p>
                 <label>漫画名称：</label>
                 <input name="name" class="required" type="text" size="30" minlength="1" maxlength="50" value="@(m!=null?m.F_Catalog:"")" />
                 <input type="hidden" name="id" value="@(m!=null?m.F_Id:0)" />
             </p>
+            <p style="height:auto">
+                <label>公号LOGO：</label>
+                <input id="logo" name="logo" type="file" accept="image/*" />
+            </p>
             <p>
                 <label>关联公众号：</label>
-                <select name="gid" ref="w_combox_city">
+                <select name="gid" ref="w_combox_city" style="width:180px">
                     @foreach (var it in list)
                     {
                         <option value="@it.F_Id" @(m.F_GZHId == it.F_Id ? "selected=\"selected\"" : "")>@it.F_GZHName</option>
