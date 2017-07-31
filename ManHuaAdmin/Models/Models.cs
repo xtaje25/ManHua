@@ -386,6 +386,11 @@ namespace ManHuaAdmin.Models
         /// 自定义
         /// </summary>
         public string userName { get; set; }
+
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        public string logo { get; set; }
     }
 
     public class Tab_MHSale

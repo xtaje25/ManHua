@@ -27,15 +27,14 @@ namespace ManHuaAdmin.Utility
         /// </summary>
         /// <param name="bucket">七牛空间</param>
         /// <param name="seconds">凭证有效时长</param>
-        public static string GetUploadToken(string bucket, int seconds = 600)
+        public static string GetUploadToken(string bucket, string key, int seconds = 3600)
         {
             // 上传策略
             PutPolicy putPolicy = new PutPolicy();
-            putPolicy.MimeLimit = "image/*"; // 表示只允许上传图片类型
-            // 设置要上传的目标空间
-            putPolicy.Scope = bucket;
-            // 上传策略的过期时间(单位:秒)
-            putPolicy.SetExpires(seconds);
+            putPolicy.SetExpires(seconds); // 上传策略的过期时间(单位:秒)
+            putPolicy.MimeLimit = "image/*"; // 表示只允许上传图片类型            
+            putPolicy.Scope = bucket + ":" + key; // 设置要上传的目标空间
+            putPolicy.InsertOnly = 0;
 
             Mac mac = new Mac(AK, SK);
 

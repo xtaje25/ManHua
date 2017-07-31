@@ -253,22 +253,25 @@ namespace ManHuaAdmin.Controllers
             var gid = 0;
             if (!int.TryParse(id, out gid) || gid == 0)
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公号不存在" });
+                // IE浏览器对非ajax请求Content-Type:是json的不友好所以使用View而非Json
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公号不存在" });
             }
 
             if (about != null && about.Length > 4000)
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公号简介长度必须小于4000字符" });
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公号简介长度必须小于4000字符" });
             }
 
             var logo = "";
             if (Request.Files.Count > 0)
             {
                 var stream = Request.Files[0].InputStream;
-                var key = "LOGO/" + gid + "/" + gid + ".jpg";
+                var str = Tools.DateTimeToTimeStamp(DateTime.Now);
+                var lg = str.Substring(0, str.IndexOf('.'));
+                var key = "LOGO/" + gid + "/" + lg + ".jpg";
 
                 FormUploader fu = new FormUploader();
-                HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET));
+                HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET, key));
                 if (result.Code == 200)
                 {
                     logo = QN.IMGSRC + "/" + key;
@@ -284,11 +287,11 @@ namespace ManHuaAdmin.Controllers
 
             if (i == 1)
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.OK, message = "成功" });
             }
             else
             {
-                return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
             }
         }
     }

@@ -25,5 +25,21 @@ namespace ManHuaAdmin.Utility
             }
             return sb.ToString();
         }
+
+        #region DateTime时间戳互转
+        public static string DateTimeToTimeStamp(DateTime dt)
+        {
+            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            return (dt - dtStart).TotalMilliseconds.ToString();
+        }
+
+        public static DateTime TimeStampToDateTime(String TimeStamp)
+        {
+            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            long lTime = long.Parse(TimeStamp + "0000");
+            TimeSpan toNow = new TimeSpan(lTime);
+            return dtStart.Add(toNow);
+        }
+        #endregion
     }
 }

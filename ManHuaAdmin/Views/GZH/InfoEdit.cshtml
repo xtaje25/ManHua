@@ -1,0 +1,8 @@
+﻿@using ManHuaAdmin.Models;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "InfoEdit";
+    DWZJson j = Model;
+}
+@Html.Raw(JsonConvert.SerializeObject(j))
+

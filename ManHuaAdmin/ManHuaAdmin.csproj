@@ -289,6 +289,7 @@
     <Content Include="Views\Sale\EditView.cshtml" />
     <Content Include="Views\User\AddView.cshtml" />
     <Content Include="Views\User\EditView.cshtml" />
+    <Content Include="Views\GZH\InfoEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
