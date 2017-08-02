@@ -32,7 +32,7 @@ namespace ManHuaAdmin.Utility
             // 上传策略
             PutPolicy putPolicy = new PutPolicy();
             putPolicy.SetExpires(seconds); // 上传策略的过期时间(单位:秒)
-            putPolicy.MimeLimit = "image/*"; // 表示只允许上传图片类型            
+            putPolicy.MimeLimit = "image/gif;image/jpeg;image/jpg;image/png"; // 表示只允许上传图片类型
             putPolicy.Scope = bucket + ":" + key; // 设置要上传的目标空间
             putPolicy.InsertOnly = 0;
 

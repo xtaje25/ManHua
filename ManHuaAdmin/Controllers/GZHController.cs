@@ -263,11 +263,11 @@ namespace ManHuaAdmin.Controllers
             }
 
             var logo = "";
-            if (Request.Files.Count > 0)
+            if (Request.Files.Count > 0
+                && Request.Files[0].ContentLength > 0
+                && new string[] { ".gif", ".jpeg", ".jpg", ".png" }.Contains(System.IO.Path.GetExtension(Request.Files[0].FileName.ToLower())))
             {
-                var stream = Request.Files[0].InputStream;
-                var str = Tools.DateTimeToTimeStamp(DateTime.Now);
-                var lg = str.Substring(0, str.IndexOf('.'));
+
                 var key = QN.GZHLogo(gid);
 
                 FormUploader fu = new FormUploader();
