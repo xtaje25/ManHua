@@ -45,8 +45,8 @@ namespace ManHuaAdmin.Service
         /// 处理未能授权的 HTTP 请求。
         /// </summary>
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
-        {
-            filterContext.HttpContext.Response.Redirect("/Home/Login");
+        {            
+            filterContext.Result = new RedirectResult("/Home/Login");
         }
     }
 
@@ -87,7 +87,7 @@ namespace ManHuaAdmin.Service
         /// </summary>
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.HttpContext.Response.Redirect("/Home/AjaxLogin");
+            filterContext.Result = new RedirectResult("/Home/AjaxLogin");
         }
     }
 
@@ -135,8 +135,8 @@ namespace ManHuaAdmin.Service
         /// 处理未能授权的 HTTP 请求。
         /// </summary>
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
-        {
-            filterContext.HttpContext.Response.Redirect("/Home/AjaxLogin");
+        {            
+            filterContext.Result = new RedirectResult("/Home/AjaxLogin");
         }
     }
 }
