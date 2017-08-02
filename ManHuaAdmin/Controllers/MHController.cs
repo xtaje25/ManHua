@@ -154,7 +154,7 @@ namespace ManHuaAdmin.Controllers
             {
                 var str = Tools.DateTimeToTimeStamp(DateTime.Now);
                 var lg = str.Substring(0, str.IndexOf('.'));
-                var key = "MH/" + gid + "/" + id + "/" + lg + ".jpg";
+                var key = QN.MHLogo(gid, id);
 
                 FormUploader fu = new FormUploader();
                 HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET, key));

@@ -40,5 +40,42 @@ namespace ManHuaAdmin.Utility
 
             return Auth.CreateUploadToken(mac, putPolicy.ToJsonString());
         }
+
+        /// <summary>
+        /// 公众号号logo
+        /// </summary>
+        /// <param name="GZHId">公号ID</param>
+        /// <param name="timeStamp">时间戳</param>
+        public static string GZHLogo(int GZHId)
+        {
+            var str = Tools.DateTimeToTimeStamp(DateTime.Now);
+            var timeStamp = str.Substring(0, str.IndexOf('.'));
+            return "LOGO/" + GZHId + "/" + timeStamp + ".jpg";
+        }
+
+        /// <summary>
+        /// 漫画logo
+        /// </summary>
+        /// <param name="GZHId">公号ID</param>
+        /// <param name="MHId">漫画ID</param>
+        /// <param name="timeStamp">时间戳</param>
+        public static string MHLogo(int GZHId, int MHId)
+        {
+            var str = Tools.DateTimeToTimeStamp(DateTime.Now);
+            var timeStamp = str.Substring(0, str.IndexOf('.'));
+            return "MH/" + GZHId + "/" + MHId + "/" + timeStamp + ".jpg";
+        }
+
+        /// <summary>
+        /// 漫画图片
+        /// </summary>
+        /// <param name="GZHId">公号ID</param>
+        /// <param name="MHId">漫画ID</param>
+        public static string MHimg(int GZHId, int MHId)
+        {
+            var str = Tools.DateTimeToTimeStamp(DateTime.Now);
+            var timeStamp = str.Substring(0, str.IndexOf('.'));
+            return "IMG/" + GZHId + "/" + MHId + "/" + timeStamp + ".jpg";
+        }
     }
 }

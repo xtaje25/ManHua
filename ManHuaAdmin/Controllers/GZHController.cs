@@ -268,7 +268,7 @@ namespace ManHuaAdmin.Controllers
                 var stream = Request.Files[0].InputStream;
                 var str = Tools.DateTimeToTimeStamp(DateTime.Now);
                 var lg = str.Substring(0, str.IndexOf('.'));
-                var key = "LOGO/" + gid + "/" + lg + ".jpg";
+                var key = QN.GZHLogo(gid);
 
                 FormUploader fu = new FormUploader();
                 HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET, key));
