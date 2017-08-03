@@ -274,7 +274,7 @@ namespace ManHuaAdmin.Controllers
                 HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET, key));
                 if (result.Code == 200)
                 {
-                    logo = QN.IMGSRC + "/" + key;
+                    logo = key;
                 }
             }
 
