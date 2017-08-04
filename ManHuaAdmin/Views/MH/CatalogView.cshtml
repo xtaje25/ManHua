@@ -48,7 +48,7 @@
                         <td><div>@(item.F_Catalog)</div></td>
                         @if (item.F_Logo != null)
                         {
-                            <td><div><a target="_blank" href="@(QN.IMGSRC+item.F_Logo+"-200x200.jpg")"><img src="@(QN.IMGSRC+item.F_Logo+"-100x100.jpg")" /></a></div></td>
+                            <td><div><a target="_blank" href="@(QN.IMGSRC+"/"+item.F_Logo+"-200x200.jpg")"><img src="@(QN.IMGSRC+"/"+item.F_Logo+"-100x100.jpg")" /></a></div></td>
                         }
                         else
                         {
