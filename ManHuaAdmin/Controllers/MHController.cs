@@ -161,9 +161,10 @@ namespace ManHuaAdmin.Controllers
                 && new string[] { ".gif", ".jpeg", ".jpg", ".png" }.Contains(System.IO.Path.GetExtension(Request.Files[0].FileName.ToLower())))
             {
                 var key = QN.MHLogo(gid, id);
+                var token = QN.GetUploadToken(QN.BUCKET, key);
 
                 FormUploader fu = new FormUploader();
-                HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET, key));
+                HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, token);
                 if (result.Code == 200)
                 {
                     logo = key;
