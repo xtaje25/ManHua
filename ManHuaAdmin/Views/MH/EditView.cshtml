@@ -1,6 +1,5 @@
 ﻿@using ManHuaAdmin.Models;
-@{
-    ViewBag.Title = "EditView";
+@{    
     List<Tab_GongZhongHao> list = ViewBag.list;
     Tab_MHCatalog m = ViewBag.m;
 }
@@ -25,6 +24,10 @@
                         <option value="@it.F_Id" @(m.F_GZHId == it.F_Id ? "selected=\"selected\"" : "")>@it.F_GZHName</option>
                     }
                 </select>
+            </p>
+            <p style="height:auto">
+                <label>漫画简介：</label>
+                <textarea name="about" cols="30" rows="3" maxlength="2000">@(m!=null?m.F_About:"")</textarea>
             </p>
         </div>
         <div class="formBar">

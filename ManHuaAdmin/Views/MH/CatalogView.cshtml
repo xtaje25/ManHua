@@ -30,6 +30,7 @@
                 <th>编号</th>
                 <th>漫画名称</th>
                 <th>漫画logo</th>
+                <th>漫画简介</th>
                 <th>添加人</th>
                 <th>添加时间</th>
                 <th>关联公众号</th>
@@ -44,8 +45,8 @@
                 foreach (var item in vm.list)
                 {
                     <tr target="sid_user" rel="@i">
-                        <td><div>@(item.F_Id)</div></td>
-                        <td><div>@(item.F_Catalog)</div></td>
+                        <td>@(item.F_Id)</td>
+                        <td>@(item.F_Catalog)</td>
                         @if (item.F_Logo != null)
                         {
                             <td><div><a target="_blank" href="@(QN.IMGSRC+"/"+item.F_Logo+"-200x200.jpg")"><img src="@(QN.IMGSRC+"/"+item.F_Logo+"-100x100.jpg")" /></a></div></td>
@@ -54,13 +55,12 @@
                         {
                             <td><div></div></td>
                         }
-                        <td><div>@(item.userName)</div></td>
-                        <td><div>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</div></td>
-                        <td><div>@(item.GZHName)</div></td>
+                        <td>@(item.F_About == null ? "" : item.F_About)</td>
+                        <td>@(item.userName)</td>
+                        <td>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</td>
+                        <td>@(item.GZHName)</td>
                         <td>
-                            <div>
-                                <a title="编辑" target="dialog" href="@Url.Content("~/MH/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>
-                            </div>
+                            <a title="编辑" target="dialog" href="@Url.Content("~/MH/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>
                         </td>
                     </tr>
                     i++;
@@ -84,5 +84,3 @@
 
     </div>
 </div>
-
-

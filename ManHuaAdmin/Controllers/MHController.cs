@@ -131,6 +131,7 @@ namespace ManHuaAdmin.Controllers
             var name = Request.Form["name"];
             var id1 = Request.Form["gid"];
             var id2 = Request.Form["id"];
+            var about = Request.Form["about"];
 
             if (name == null || name.Length < 1 || name.Length > 50)
             {
@@ -147,6 +148,11 @@ namespace ManHuaAdmin.Controllers
             if (!int.TryParse(id2, out id) || id == 0)
             {
                 return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "漫画不存在" });
+            }
+
+            if (about == null || about.Length > 2000)
+            {
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "漫画简介必须小于2000字符" });
             }
 
             var logo = "";
@@ -169,6 +175,7 @@ namespace ManHuaAdmin.Controllers
             m.F_GZHId = gid;
             m.F_Logo = logo != "" ? logo : null;
             m.F_Id = id;
+            m.F_About = about;
 
             int i = _ms.UpdateMH(m);
 

@@ -16,7 +16,7 @@ namespace ManHuaAdmin.Repository
         {
             PageCriteria page = new PageCriteria();
             page.TableName = "[Tab_MHCatalog] a JOIN [Tab_GongZhongHao] b ON a.[F_GZHId] = b.[F_Id] JOIN [dbo].[Tab_User] c ON c.F_Id = a.[F_CreateUser]";
-            page.Fields = "a.[F_Id], a.[F_Catalog], a.[F_Logo], a.[F_GZHId], c.[F_Name] [userName], a.[F_CreateUser], a.[F_CreateDate], b.[F_GZHName] [GZHName]";
+            page.Fields = "a.[F_Id], a.[F_Catalog], a.[F_Logo], a.[F_About], a.[F_GZHId], c.[F_Name] [userName], a.[F_CreateUser], a.[F_CreateDate], b.[F_GZHName] [GZHName]";
             page.Condition = "1 = 1";
             page.Sort = "a.[F_Id] DESC";
             page.PageSize = pageSize;
@@ -77,7 +77,7 @@ namespace ManHuaAdmin.Repository
 
         public Tab_MHCatalog GetMH(int mhid)
         {
-            var sql = "SELECT [F_Id], [F_Catalog], [F_GZHId], [F_CreateUser], [F_CreateDate] FROM [Tab_MHCatalog]  WHERE [F_Id] = @F_Id";
+            var sql = "SELECT [F_Id], [F_Catalog], [F_GZHId], [F_CreateUser], [F_CreateDate], [F_About] FROM [Tab_MHCatalog]  WHERE [F_Id] = @F_Id";
 
             using (SqlConnection conn = new SqlConnection(MHConncetionString))
             {
@@ -109,11 +109,15 @@ namespace ManHuaAdmin.Repository
             {
                 sql.Append("  ,[F_Logo] = @F_Logo");
             }
+            if (m.F_About != null)
+            {
+                sql.Append("  ,[F_About] = @F_About");
+            }
             sql.Append(" WHERE [F_Id] = @F_Id");
 
             using (SqlConnection conn = new SqlConnection(MHConncetionString))
             {
-                return conn.Execute(sql.ToString(), new { F_Catalog = m.F_Catalog, F_GZHId = m.F_GZHId, F_Id = m.F_Id, F_Logo = m.F_Logo });
+                return conn.Execute(sql.ToString(), new { F_Catalog = m.F_Catalog, F_GZHId = m.F_GZHId, F_Id = m.F_Id, F_Logo = m.F_Logo, F_About = m.F_About });
             }
         }
 
