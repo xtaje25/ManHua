@@ -232,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\GZHController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MHController.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Repository\GongZhongHaoRepository.cs" />
     <Compile Include="Repository\MenuRepository.cs" />
     <Compile Include="Repository\MHCatalogRepository.cs" />
+    <Compile Include="Repository\MHImgRepository.cs" />
     <Compile Include="Repository\SaleRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Service\ArticleService.cs" />
@@ -257,6 +259,7 @@
     <Compile Include="Service\GongZhongHaoService.cs" />
     <Compile Include="Service\MenuService.cs" />
     <Compile Include="Service\MHCatalogService.cs" />
+    <Compile Include="Service\MHImgService.cs" />
     <Compile Include="Service\SaleService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Utility\QN.cs" />
@@ -303,6 +306,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\API\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

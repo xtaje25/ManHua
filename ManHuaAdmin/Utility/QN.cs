@@ -23,6 +23,8 @@ namespace ManHuaAdmin.Utility
         public const string BUCKET = "comic";
 #endif
 
+        public const string DEFAULTSRC = "1493028249000";
+
         /// <summary>
         /// 获取七牛上传凭证
         /// </summary>

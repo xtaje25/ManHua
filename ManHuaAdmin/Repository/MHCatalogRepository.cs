@@ -130,5 +130,21 @@ namespace ManHuaAdmin.Repository
                 return conn.Query<Tab_MHCatalog>(sql, new { F_GZHId = gid }).ToList();
             }
         }
+
+        public List<VM_Tab_MHCatalog> GetMHList()
+        {
+            var sql = @"SELECT [F_Id]
+                              ,[F_Catalog]
+                              ,[F_Logo]
+                              ,[F_GZHId]
+                              ,[F_About]
+                          FROM [Tab_MHCatalog]
+                          ORDER BY [F_Id]";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                return conn.Query<VM_Tab_MHCatalog>(sql).ToList();
+            }
+        }
     }
 }

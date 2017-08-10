@@ -38,5 +38,10 @@ namespace ManHuaAdmin.Service
         {
             return mr.GetMHList(gid);
         }
+
+        public List<VM_Tab_MHCatalog> GetMHList()
+        {
+            return mr.GetMHList();
+        }
     }
 }
