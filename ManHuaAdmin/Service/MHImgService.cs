@@ -15,5 +15,10 @@ namespace ManHuaAdmin.Service
         {
             return mr.GetImgList(mhid);
         }
+
+        public int GetLastSort(int mhid)
+        {
+            return mr.GetLastSort(mhid);
+        }
     }
 }

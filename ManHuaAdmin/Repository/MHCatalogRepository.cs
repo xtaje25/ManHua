@@ -146,5 +146,29 @@ namespace ManHuaAdmin.Repository
                 return conn.Query<VM_Tab_MHCatalog>(sql).ToList();
             }
         }
+
+        public VM_Tab_MHCatalog GetAPIMH(int mhid)
+        {
+            var sql = "SELECT F_Id, F_Catalog, F_Logo, F_GZHId, F_About FROM dbo.Tab_MHCatalog WHERE F_Id = @F_Id";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                var list = conn.Query<VM_Tab_MHCatalog>(sql, new { F_Id = mhid }).ToList();
+
+                if (list != null && list.Count > 0)
+                {
+                    VM_Tab_MHCatalog g = new VM_Tab_MHCatalog();
+                    g.f_id = list[0].f_id;
+                    g.f_catalog = list[0].f_catalog;
+                    g.f_logo = list[0].f_logo;
+                    g.f_gzhid = list[0].f_gzhid;
+                    g.f_about = list[0].f_about;
+
+                    return g;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -49,5 +49,26 @@ namespace ManHuaAdmin.Controllers
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetInfo()
+        {
+            var id = Request.QueryString["id"];
+
+            var mhid = 0;
+            int.TryParse(id, out mhid);
+            mhid = mhid == 0 ? 1 : mhid;
+
+            var mod = _mcs.GetAPIMH(mhid);
+            mod.f_logo = QN.IMGSRC + "/" + mod.f_logo + "-1x1.jpg";
+
+            var sort = _mis.GetLastSort(mhid);
+            mod.sort = sort;
+
+            ViewModels_obj vm = new ViewModels_obj();
+            vm.status = 1;
+            vm.data = mod;
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
     }
 }

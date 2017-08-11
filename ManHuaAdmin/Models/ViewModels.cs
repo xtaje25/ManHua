@@ -38,6 +38,13 @@ namespace ManHuaAdmin.Models
         public List<T> data = new List<T>();
     }
 
+    public class ViewModels_obj
+    {
+        public int status { get; set; }
+        public string msg { get; set; } = string.Empty;
+        public object data = new { };
+    }
+
     public class VM_Tab_MHCatalog
     {
         public int f_id { get; set; }
@@ -49,16 +56,18 @@ namespace ManHuaAdmin.Models
         public int f_gzhid { get; set; }
 
         public string f_about { get; set; } = string.Empty;
+
+        public int sort { get; set; }
     }
 
     public class VM_Tab_MHImg
     {
         public string f_name { get; set; }
-        
+
         public string f_img { get; set; }
-        
+
         public int f_mhid { get; set; }
-        
+
         public int f_sort { get; set; }
     }
 

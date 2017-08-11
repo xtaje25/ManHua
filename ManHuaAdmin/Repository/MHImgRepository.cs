@@ -24,5 +24,17 @@ namespace ManHuaAdmin.Repository
                 return conn.Query<VM_Tab_MHImg>(sql, new { F_MHId = mhid }).ToList();
             }
         }
+
+
+        public int GetLastSort(int mhid)
+        {
+            var sql = @"SELECT MAX(F_Sort) F_Sort FROM dbo.Tab_MHImg WHERE F_MHId = @F_MHId";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                var s = conn.ExecuteScalar(sql, new { F_MHId = mhid });
+                return Convert.ToInt32(s);
+            }
+        }
     }
 }

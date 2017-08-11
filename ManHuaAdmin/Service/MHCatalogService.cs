@@ -43,5 +43,10 @@ namespace ManHuaAdmin.Service
         {
             return mr.GetMHList();
         }
+
+        public VM_Tab_MHCatalog GetAPIMH(int mhid)
+        {
+            return mr.GetAPIMH(mhid);
+        }
     }
 }
