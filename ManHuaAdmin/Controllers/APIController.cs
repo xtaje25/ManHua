@@ -70,5 +70,58 @@ namespace ManHuaAdmin.Controllers
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetImgInfo()
+        {
+            var id = Request.QueryString["id"];
+            var st = Request.QueryString["st"];
+
+            var mhid = 0;
+            var sort = 0;
+
+            int.TryParse(id, out mhid);
+            int.TryParse(st, out sort);
+
+            mhid = mhid == 0 ? 1 : mhid;
+            sort = sort == 0 ? 1 : sort;
+
+            var img = _mis.GetMH(mhid, sort);
+
+            if (img != null)
+            {
+                img.f_img = QN.IMGSRC + "/" + img.f_img + "-1x1.jpg";
+            }
+
+            var list = _mis.GetMHList(mhid);
+
+            var m1 = list.Find(x => x.f_sort == sort);
+
+            if (m1.sort == 1)
+            {
+                img.previous = 0;
+            }
+            else
+            {
+                var m2 = list.Find(x => x.sort == m1.sort - 1);
+                img.previous = m2 != null ? m2.f_sort : 0;
+            }
+
+            if (m1.sort == list.Count)
+            {
+                img.next = 0;
+            }
+            else
+            {
+                var m2 = list.Find(x => x.sort == m1.sort + 1);
+                img.next = m2 != null ? m2.f_sort : 0;
+            }
+
+            ViewModels_obj vm = new ViewModels_obj();
+            vm.status = img == null ? 0 : 1;
+            vm.msg = img == null ? "漫画没找到" : "";
+            vm.data = img;
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
     }
 }

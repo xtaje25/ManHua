@@ -20,5 +20,15 @@ namespace ManHuaAdmin.Service
         {
             return mr.GetLastSort(mhid);
         }
+
+        public VM_Tab_MHImg GetMH(int mhid, int sort)
+        {
+            return mr.GetMH(mhid, sort);
+        }
+
+        public List<VM_Tab_MHImg> GetMHList(int mhid)
+        {
+            return mr.GetMHList(mhid);
+        }
     }
 }

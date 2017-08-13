@@ -69,6 +69,12 @@ namespace ManHuaAdmin.Models
         public int f_mhid { get; set; }
 
         public int f_sort { get; set; }
+
+        public int sort { get; set; }
+
+        public int previous { get; set; }
+
+        public int next { get; set; }        
     }
 
 }
