@@ -30,5 +30,10 @@ namespace ManHuaAdmin.Service
         {
             return mr.GetMHList(mhid);
         }
+
+        public List<Tab_MHImg> GetMhCount()
+        {
+            return mr.GetMhCount();
+        }
     }
 }

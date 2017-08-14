@@ -360,6 +360,8 @@ namespace ManHuaAdmin.Models
         public string F_About { get; set; }
 
         public DateTime F_CreateDate { get; set; }
+
+        public int count { get; set; }
     }
 
     public class Tab_MHCatalog
@@ -462,6 +464,38 @@ namespace ManHuaAdmin.Models
         /// 自定义
         /// </summary>
         public string name { get; set; }
+    }
+
+    public class Tab_MHImg
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int F_Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string F_Name { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string F_Img { get; set; }
+
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_MHId { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int F_Sort { get; set; }
+
+        public bool F_IsEnable { get; set; }
+
+        public int F_UserId { get; set; }
+
+        public DateTime F_CreateDate { get; set; }
+
+        public int F_Count { get; set; }
     }
     #endregion
 

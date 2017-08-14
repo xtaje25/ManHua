@@ -14,6 +14,7 @@ namespace ManHuaAdmin.Controllers
     public class GZHController : Controller
     {
         private GongZhongHaoService _gzhs = new GongZhongHaoService();
+        private MHImgService _mis = new MHImgService();
 
         [CustomAuthorize]
         [CustomAjaxLogin]

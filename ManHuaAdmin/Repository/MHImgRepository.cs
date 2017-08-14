@@ -25,7 +25,6 @@ namespace ManHuaAdmin.Repository
             }
         }
 
-
         public int GetLastSort(int mhid)
         {
             var sql = @"SELECT MAX(F_Sort) F_Sort FROM dbo.Tab_MHImg WHERE F_MHId = @F_MHId";
@@ -67,6 +66,16 @@ namespace ManHuaAdmin.Repository
             using (SqlConnection conn = new SqlConnection(MHConncetionString))
             {
                 return conn.Query<VM_Tab_MHImg>(sql, new { F_MHId = mhid }).ToList();
+            }
+        }
+
+        public List<Tab_MHImg> GetMhCount()
+        {
+            var sql = "SELECT F_MHId, COUNT(*) F_Count FROM dbo.Tab_MHImg GROUP BY F_MHId";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                return conn.Query<Tab_MHImg>(sql).ToList();
             }
         }
     }

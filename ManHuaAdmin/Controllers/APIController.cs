@@ -73,6 +73,8 @@ namespace ManHuaAdmin.Controllers
 
         public ActionResult GetImgInfo()
         {
+            ViewModels_obj vm = new ViewModels_obj();
+
             var id = Request.QueryString["id"];
             var st = Request.QueryString["st"];
 
@@ -81,6 +83,12 @@ namespace ManHuaAdmin.Controllers
 
             int.TryParse(id, out mhid);
             int.TryParse(st, out sort);
+
+            if (mhid == 0 || sort == 0)
+            {
+                vm.msg = "参数不正确";
+                vm.data = new { };
+            }
 
             mhid = mhid == 0 ? 1 : mhid;
             sort = sort == 0 ? 1 : sort;
@@ -116,7 +124,7 @@ namespace ManHuaAdmin.Controllers
                 img.next = m2 != null ? m2.f_sort : 0;
             }
 
-            ViewModels_obj vm = new ViewModels_obj();
+
             vm.status = img == null ? 0 : 1;
             vm.msg = img == null ? "漫画没找到" : "";
             vm.data = img;

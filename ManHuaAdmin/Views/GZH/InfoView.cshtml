@@ -1,6 +1,5 @@
 ﻿@using ManHuaAdmin.Models;
 @{
-    ViewBag.Title = "Info";
     VM_Page<Tab_GongZhongHao> vm = ViewBag.ca;
 }
 
@@ -20,7 +19,7 @@
                 <th>公号名称</th>
                 <th>公号logo</th>
                 <th>公号简介</th>
-                <th>已上传章节</th>
+                @*<th>已上传章节</th>*@
                 <th width="200">编辑</th>
             </tr>
         </thead>
@@ -31,15 +30,13 @@
                 foreach (var item in vm.list)
                 {
                     <tr target="sid_user" rel="@i">
-                        <td><div>@(item.F_Id)</div></td>
-                        <td><div>@(item.F_GZHName)</div></td>
-                        <td><div>@(item.F_Logo != null ? "有" : "无")</div></td>
-                        <td><div>@(item.F_About != null ? item.F_About : "")</div></td>
-                        <td><div>0</div></td>
+                        <td>@(item.F_Id)</td>
+                        <td>@(item.F_GZHName)</td>
+                        <td>@(item.F_Logo != null ? "有" : "无")</td>
+                        <td>@(item.F_About != null ? item.F_About : "")</td>
+                        @*<td><div>0</div></td>*@
                         <td>
-                            <div>
-                                <a title="编辑" target="dialog" href="@Url.Content("~/GZH/InfoEditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>
-                            </div>
+                            <a title="编辑" target="dialog" href="@Url.Content("~/GZH/InfoEditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>
                         </td>
                     </tr>
                     i++;
