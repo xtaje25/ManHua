@@ -17,7 +17,7 @@ namespace ManHuaAdmin.Repository
                               ,[F_MHId]
                               ,[F_Sort]
                           FROM [Tab_MHImg]
-                          WHERE [F_MHId] = @F_MHId";
+                         WHERE [F_MHId] = @F_MHId";
 
             using (SqlConnection conn = new SqlConnection(MHConncetionString))
             {

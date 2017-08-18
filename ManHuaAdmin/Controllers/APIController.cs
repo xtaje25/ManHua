@@ -88,6 +88,7 @@ namespace ManHuaAdmin.Controllers
             {
                 vm.msg = "参数不正确";
                 vm.data = new { };
+                return Json(vm, JsonRequestBehavior.AllowGet);
             }
 
             mhid = mhid == 0 ? 1 : mhid;
@@ -98,6 +99,12 @@ namespace ManHuaAdmin.Controllers
             if (img != null)
             {
                 img.f_img = QN.IMGSRC + "/" + img.f_img + "-1x1.jpg";
+            }
+            else
+            {
+                vm.msg = "章节不存在";
+                vm.data = new { };
+                return Json(vm, JsonRequestBehavior.AllowGet);
             }
 
             var list = _mis.GetMHList(mhid);
@@ -123,7 +130,6 @@ namespace ManHuaAdmin.Controllers
                 var m2 = list.Find(x => x.sort == m1.sort + 1);
                 img.next = m2 != null ? m2.f_sort : 0;
             }
-
 
             vm.status = img == null ? 0 : 1;
             vm.msg = img == null ? "漫画没找到" : "";

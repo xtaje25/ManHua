@@ -1,5 +1,6 @@
 ﻿using ManHuaAdmin.Models;
 using ManHuaAdmin.Repository;
+using ManHuaAdmin.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,9 +37,10 @@ namespace ManHuaAdmin.Service
             return ur.GetUserGZH(uid);
         }
 
-        public int UpdateUser(int uid)
+        public int ResetPassword(int uid)
         {
-            return ur.UpdateUser(uid);
+            var pwd = Tools.MD5Encrypt32("123456");
+            return ur.ResetPassword(uid, pwd);
         }
 
         public int DeleteUser(int uid)

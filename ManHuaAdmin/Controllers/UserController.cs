@@ -1,5 +1,6 @@
 ﻿using ManHuaAdmin.Models;
 using ManHuaAdmin.Service;
+using ManHuaAdmin.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +77,7 @@ namespace ManHuaAdmin.Controllers
 
             Tab_User m = new Tab_User();
             m.F_Name = name;
-            m.F_Password = "123456";
+            m.F_Password = Tools.MD5Encrypt32("123456");
             m.GZHId = gid;
             m.RoleId = 2; // 公众号管理员
 
@@ -134,7 +135,7 @@ namespace ManHuaAdmin.Controllers
                 return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "账号不存在" });
             }
 
-            int i = _us.UpdateUser(uid);
+            int i = _us.ResetPassword(uid);
 
             if (i == 1)
             {
