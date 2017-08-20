@@ -59,6 +59,16 @@ namespace ManHuaAdmin.Repository
             return null;
         }
 
+        public List<VM_Tab_MHImg> GetMH2(int mhid, int sort)
+        {
+            var sql = "SELECT TOP(2) F_Id, F_Name, F_Img, F_MHId, F_Sort FROM Tab_MHImg WHERE F_MHId = 1 AND F_Sort >= 1 ORDER BY F_Sort";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                return conn.Query<VM_Tab_MHImg>(sql, new { F_MHId = mhid, F_Sort = sort }).ToList();
+            }
+        }
+
         public List<VM_Tab_MHImg> GetMHList(int mhid)
         {
             var sql = @"SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY F_Sort) sort, F_Id, F_Name, F_Img, F_MHId, F_Sort FROM Tab_MHImg WHERE F_MHId = @F_MHId) AS t";

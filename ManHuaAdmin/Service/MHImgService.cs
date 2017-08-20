@@ -26,6 +26,11 @@ namespace ManHuaAdmin.Service
             return mr.GetMH(mhid, sort);
         }
 
+        public List<VM_Tab_MHImg> GetMH2(int mhid, int sort)
+        {
+            return mr.GetMH2(mhid, sort);
+        }
+
         public List<VM_Tab_MHImg> GetMHList(int mhid)
         {
             return mr.GetMHList(mhid);

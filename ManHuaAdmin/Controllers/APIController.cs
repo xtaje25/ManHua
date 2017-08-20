@@ -137,5 +137,77 @@ namespace ManHuaAdmin.Controllers
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetImgInfo2()
+        {
+            ViewModels_obj vm = new ViewModels_obj();
+
+            var id = Request.QueryString["id"];
+            var st = Request.QueryString["st"];
+
+            var mhid = 0;
+            var sort = 0;
+
+            int.TryParse(id, out mhid);
+            int.TryParse(st, out sort);
+
+            if (mhid == 0 || sort == 0)
+            {
+                vm.msg = "参数不正确";
+                vm.data = new { };
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            mhid = mhid == 0 ? 1 : mhid;
+            sort = sort == 0 ? 1 : sort;
+
+            var imgs = _mis.GetMH2(mhid, sort);
+
+            if (imgs != null && imgs.Count > 0)
+            {
+                imgs.ForEach(x =>
+                {
+                    x.f_img = QN.IMGSRC + "/" + x.f_img + "-1x1.jpg";
+                });
+            }
+            else
+            {
+                vm.msg = "章节不存在";
+                vm.data = new object[] { };
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            var list = _mis.GetMHList(mhid);
+
+            for (int i = 0; i < imgs.Count; i++)
+            {
+                var m1 = list.Find(x => x.f_sort == imgs[i].f_sort);
+
+                if (m1.sort == 1)
+                {
+                    imgs[i].previous = 0;
+                }
+                else
+                {
+                    var m2 = list.Find(x => x.sort == m1.sort - 1);
+                    imgs[i].previous = m2 != null ? m2.f_sort : 0;
+                }
+
+                if (m1.sort == list.Count)
+                {
+                    imgs[i].next = 0;
+                }
+                else
+                {
+                    var m2 = list.Find(x => x.sort == m1.sort + 1);
+                    imgs[i].next = m2 != null ? m2.f_sort : 0;
+                }
+            }
+
+            vm.status = 1;
+            vm.data = imgs;
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
     }
 }
