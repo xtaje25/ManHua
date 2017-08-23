@@ -5,12 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace ManHuaAdmin.Controllers
 {
     public class APIController : Controller
     {
+        private readonly static string MHID = WebConfigurationManager.AppSettings["mhid"].ToString();
         private MHCatalogService _mcs = new MHCatalogService();
         private MHImgService _mis = new MHImgService();
 
@@ -35,11 +37,14 @@ namespace ManHuaAdmin.Controllers
 
         public ActionResult GetMHDir()
         {
+            var _id = 0;
+            int.TryParse(MHID, out _id);
+
             var id = Request.QueryString["id"];
 
             var mhid = 0;
             int.TryParse(id, out mhid);
-            mhid = mhid == 0 ? 1 : mhid;
+            mhid = mhid == 0 ? _id : mhid;
 
             var mlist = _mis.GetImgList(mhid);
 
@@ -52,11 +57,14 @@ namespace ManHuaAdmin.Controllers
 
         public ActionResult GetInfo()
         {
+            var _id = 0;
+            int.TryParse(MHID, out _id);
+
             var id = Request.QueryString["id"];
 
             var mhid = 0;
             int.TryParse(id, out mhid);
-            mhid = mhid == 0 ? 1 : mhid;
+            mhid = mhid == 0 ? _id : mhid;
 
             var mod = _mcs.GetAPIMH(mhid);
             mod.f_logo = QN.IMGSRC + "/" + mod.f_logo + "-1x1.jpg";
