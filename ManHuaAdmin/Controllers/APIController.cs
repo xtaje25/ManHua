@@ -13,6 +13,7 @@ namespace ManHuaAdmin.Controllers
     public class APIController : Controller
     {
         private readonly static string MHID = WebConfigurationManager.AppSettings["mhid"].ToString();
+        private readonly static string ISSHOW = WebConfigurationManager.AppSettings["isShow"].ToString();
         private MHCatalogService _mcs = new MHCatalogService();
         private MHImgService _mis = new MHImgService();
 
@@ -214,6 +215,19 @@ namespace ManHuaAdmin.Controllers
 
             vm.status = 1;
             vm.data = imgs;
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetIsShow()
+        {
+            var isShow = false;
+
+            bool.TryParse(ISSHOW, out isShow);
+
+            ViewModels_obj vm = new ViewModels_obj();
+            vm.status = 1;
+            vm.data = new { isshow = isShow };
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
