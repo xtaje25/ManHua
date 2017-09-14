@@ -231,5 +231,15 @@ namespace ManHuaAdmin.Controllers
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult TestHttps()
+        {
+            var referer = Request.UrlReferrer;
+
+            if (referer != null)
+                return Json(referer, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
