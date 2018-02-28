@@ -67,7 +67,7 @@ namespace ManHuaAdmin.Controllers
                         return RedirectToAction("SignOut", "Home");
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     return RedirectToAction("SignOut", "Home");
                 }

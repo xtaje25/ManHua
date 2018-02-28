@@ -4,9 +4,11 @@ using ManHuaAdmin.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace ManHuaAdmin.Controllers
 {
@@ -234,12 +236,21 @@ namespace ManHuaAdmin.Controllers
 
         public ActionResult TestHttps()
         {
-            var referer = Request.UrlReferrer;
+            //var referer = Request.UrlReferrer;
 
-            if (referer != null)
-                return Json(referer, JsonRequestBehavior.AllowGet);
-            else
-                return Json(new { }, JsonRequestBehavior.AllowGet);
+            //if (referer != null)
+            //    return Json(referer, JsonRequestBehavior.AllowGet);
+            //else
+            //    return Json(new { }, JsonRequestBehavior.AllowGet);
+
+            var uri = Request.QueryString["uri"];
+
+            var msg = string.Empty;
+            var json = Tools.GetWebRequest(uri, Encoding.UTF8, out msg);
+
+            var obj = JsonConvert.DeserializeObject(json);
+
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
     }
 }

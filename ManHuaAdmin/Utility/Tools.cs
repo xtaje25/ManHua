@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -89,5 +92,155 @@ namespace ManHuaAdmin.Utility
             return Convert.ToBase64String(s);
         }
         #endregion
+
+        #region 请求
+        public static string GetWebRequest(string url, Encoding encoding, out string msg)
+        {
+            string result = "";
+            msg = "";
+            Stream receiveStream = null;
+            WebResponse hwrs = null;
+            StreamWriter streamWriter = null;
+            try
+            {
+                HttpWebRequest hwrq = WebRequest.Create(url) as HttpWebRequest;
+                hwrq.Method = "GET";
+
+                hwrs = hwrq.GetResponse();
+                receiveStream = hwrs.GetResponseStream();
+                StreamReader sr = new StreamReader(receiveStream, encoding);
+                result = sr.ReadToEnd();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+            }
+            finally
+            {
+                if (receiveStream != null)
+                    receiveStream.Close();
+
+                if (hwrs != null)
+                    hwrs.Close();
+
+                if (streamWriter != null)
+                    streamWriter.Close();
+            }
+            return "";
+        }
+
+        public static string PostWebRequest(string url, string data, Encoding encoding, out string msg)
+        {
+            string result = "";
+            msg = "";
+            Stream receiveStream = null;
+            WebResponse hwrs = null;
+            StreamWriter streamWriter = null;
+            HttpWebRequest hwrq = null;
+            try
+            {
+                //如果是发送HTTPS请求  
+                if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+                {
+                    ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback((a, b, c, d) => true);
+                    hwrq = WebRequest.Create(url) as HttpWebRequest;
+                    hwrq.ProtocolVersion = HttpVersion.Version10;
+                }
+                else
+                {
+                    hwrq = WebRequest.Create(url) as HttpWebRequest;
+                }
+
+                hwrq.ContentType = "application/x-www-form-urlencoded";
+                hwrq.Method = "POST";
+
+                byte[] bytes = encoding.GetBytes(data);
+                Stream stream = hwrq.GetRequestStream();
+                stream.Write(bytes, 0, bytes.Length);
+                stream.Close();
+
+                hwrs = hwrq.GetResponse();
+                receiveStream = hwrs.GetResponseStream();
+                StreamReader sr = new StreamReader(receiveStream, encoding);
+                result = sr.ReadToEnd();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+            }
+            finally
+            {
+                if (receiveStream != null)
+                    receiveStream.Close();
+
+                if (hwrs != null)
+                    hwrs.Close();
+
+                if (streamWriter != null)
+                    streamWriter.Close();
+            }
+            return "";
+        }
+
+        public static string PostWebRequest(string url, string data, string contentType, Encoding encoding, out string msg)
+        {
+            string result = "";
+            msg = "";
+            Stream receiveStream = null;
+            WebResponse hwrs = null;
+            StreamWriter streamWriter = null;
+            HttpWebRequest hwrq = null;
+            try
+            {
+                //如果是发送HTTPS请求  
+                if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+                {
+                    ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback((a, b, c, d) => true);
+                    hwrq = WebRequest.Create(url) as HttpWebRequest;
+                    hwrq.ProtocolVersion = HttpVersion.Version10;
+                }
+                else
+                {
+                    hwrq = WebRequest.Create(url) as HttpWebRequest;
+                }
+
+                if (contentType != "")
+                {
+                    hwrq.ContentType = contentType;
+                }
+                hwrq.Method = "POST";
+
+                byte[] bytes = encoding.GetBytes(data);
+                Stream stream = hwrq.GetRequestStream();
+                stream.Write(bytes, 0, bytes.Length);
+                stream.Close();
+
+                hwrs = hwrq.GetResponse();
+                receiveStream = hwrs.GetResponseStream();
+                StreamReader sr = new StreamReader(receiveStream, encoding);
+                result = sr.ReadToEnd();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+            }
+            finally
+            {
+                if (receiveStream != null)
+                    receiveStream.Close();
+
+                if (hwrs != null)
+                    hwrs.Close();
+
+                if (streamWriter != null)
+                    streamWriter.Close();
+            }
+            return "";
+        }
+        #endregion
+
     }
 }
